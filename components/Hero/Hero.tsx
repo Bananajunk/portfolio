@@ -11,11 +11,11 @@ const Hero = () => {
         </div>
         <section className="m-5 sm:m-10 text-neutral-content flex flex-col gap-2">
           <h1 className="font-black lg:text-7xl sm:text-6xl text-3xl">
-            👋🏼 Hi, I'm <span className="text-primary">Liam Reid</span>
+            👋🏼 Hi, I&rsquo;m <span className="text-primary">Liam Reid</span>
           </h1>
           <p className="font-medium lg:text-3xl sm:text-2xl text-lg">
-            I'm a senior full stack developer with over a decade of professional
-            experience.
+            I&rsquo;m a senior full stack developer with over a decade of
+            professional experience.
           </p>
           <Frameworks />
         </section>
