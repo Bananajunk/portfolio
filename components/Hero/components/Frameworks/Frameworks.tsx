@@ -11,11 +11,10 @@ import {
 import { TbBrandNextjs } from "react-icons/tb";
 
 import { Framework } from "./components";
-import styles from "./Frameworks.module.css";
 
 const Frameworks = () => {
   return (
-    <section className={styles.Frameworks}>
+    <section className="flex gap-4 items-center flex-wrap">
       <Framework label="React">
         <FaReact className="text-[#087ea4]" />
       </Framework>
