@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/20/solid";
 const Menu = () => {
   return (
-    <ul className="menu sm:menu-horizontal rounded-box">
+    <ul className="menu sm:menu-horizontal rounded-box text-neutral-content">
       <li>
         <Link href="#work">
           <BriefcaseIcon className="w-4 h-4" />

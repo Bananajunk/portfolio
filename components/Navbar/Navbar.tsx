@@ -15,10 +15,10 @@ const Navbar = () => {
         </div>
         {/* Mobile Navigation */}
         <details className="dropdown dropdown-end sm:hidden flex">
-          <summary className="btn">
+          <summary className="btn bg-base-100 border-none text-neutral-content">
             <Bars3Icon className="w-5 h-5 font-bold" />
           </summary>
-          <div className="mt-2 dropdown-content shadow-md rounded-box bg-base w-52">
+          <div className="mt-2 dropdown-content shadow-md rounded-box bg-base-100 w-52">
             <Menu />
           </div>
         </details>
