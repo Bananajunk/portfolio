@@ -14,7 +14,7 @@ import { Framework } from "./components";
 
 const Frameworks = () => {
   return (
-    <section className="flex gap-4 items-center flex-wrap">
+    <section className="flex gap-4 items-center flex-wrap px-0 lg:px-10 justify-center">
       <Framework label="React">
         <FaReact className="text-[#087ea4]" />
       </Framework>

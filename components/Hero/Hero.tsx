@@ -1,11 +1,13 @@
 import Image from "next/image";
+
+import styles from "./Hero.module.css";
 import { Frameworks, Socials } from "./components";
 
 const Hero = () => {
   return (
     <section className="relative w-full h-screen">
-      <section className="sm:px-10 px-4 absolute top-[120px] max-w-7xl flex justify-between">
-        <div className="absolute flex flex-col items-start">
+      <section className={`${styles.Hero} sm:px-10 px-4 absolute top-[120px]`}>
+        <div className="absolute flex flex-col items-start sm:left-10 left-4">
           <div className="sm:w-80 w-40 h-1 bg-gradient-to-r from-primary to-transparent" />
           <div className="w-1 sm:h-80 h-40 bg-gradient-to-b from-primary to-transparent" />
         </div>
@@ -19,10 +21,10 @@ const Hero = () => {
           </p>
           <Frameworks />
         </section>
-        <div className="bg-secondary/25 rounded-full overflow-auto relative justify-center hidden sm:flex h-fit">
+        <div className="bg-secondary/25 rounded-full overflow-auto relative justify-center hidden md:flex w-fit h-fit mt-7">
           <Image
             src="/profile.png"
-            width={500}
+            width={300}
             height={500}
             alt="Profile picture for Liam Reid"
             className="object-contain"
