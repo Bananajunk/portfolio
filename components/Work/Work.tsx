@@ -1,5 +1,5 @@
 const Work = () => {
-  return <section id="#work">Work</section>;
+  return <section id="#work"></section>;
 };
 
 export default Work;
