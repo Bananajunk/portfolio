@@ -1,0 +1,64 @@
+/*
+ * Print: a clean single-column one-pager. Hides anything marked
+ * data-print="hide", nav, the theme controls and toys, and drops decoration.
+ * Unlayered on purpose, so it beats the layered utilities.
+ */
+@media print {
+  @page {
+    margin: 0.5in;
+  }
+
+  html {
+    color-scheme: light !important;
+  }
+
+  html,
+  body {
+    min-height: 0;
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  nav,
+  [data-controls],
+  [data-print="hide"],
+  [data-toy] {
+    display: none !important;
+  }
+
+  main {
+    min-height: 0 !important;
+    place-items: start !important;
+    text-align: left !important;
+  }
+
+  main,
+  section,
+  footer {
+    display: block;
+    max-width: none;
+    padding: 0 0 0.75rem;
+    margin: 0;
+    break-inside: avoid;
+  }
+
+  * {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+    color: #000 !important;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+  }
+}

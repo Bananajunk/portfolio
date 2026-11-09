@@ -15,6 +15,7 @@
 @import "./fonts.css";
 @import "./themes.css";
 @import "./motion.css";
+@import "./print.css";
 
 @layer base {
   html {
