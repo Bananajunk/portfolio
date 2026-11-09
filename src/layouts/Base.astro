@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import ExperienceControls from "../components/ExperienceControls.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 
 interface Props {
   title: string;
@@ -35,7 +35,28 @@ const { title, description } = Astro.props;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
-    <ExperienceControls />
+    <a class="skip-link" href="#main" data-print="hide">Skip to main content</a>
+    <SiteHeader />
     <slot />
   </body>
 </html>
+
+<style is:global>
+  @layer components {
+    .skip-link {
+      position: absolute;
+      inset-inline-start: 0.5rem;
+      inset-block-start: 0.5rem;
+      z-index: 20;
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      background: var(--c-banana);
+      color: var(--c-on-banana);
+      font-weight: 700;
+      transform: translateY(-200%);
+    }
+    .skip-link:focus {
+      transform: none;
+    }
+  }
+</style>

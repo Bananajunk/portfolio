@@ -1,0 +1,42 @@
+---
+import { getEntry } from "astro:content";
+import { contactLinks } from "../lib/contact.ts";
+import { RESUME_PDF_URL } from "../lib/resume-pdf.ts";
+
+const hero = (await getEntry("hero", "hero"))?.data;
+if (!hero) throw new Error("Missing hero entry in src/content/hero.json");
+---
+
+<section
+  id="top"
+  aria-labelledby="hero-heading"
+  class="mx-auto max-w-4xl px-6 py-16 md:py-24"
+  data-nav-section
+  data-testid="hero"
+>
+  <div>
+    <h1
+      id="hero-heading"
+      class="font-display text-step-4 font-medium leading-none tracking-tight"
+    >
+      {hero.name}
+    </h1>
+    <p class="mt-5 font-display text-step-1 font-medium leading-tight">{hero.title}</p>
+    <p class="mt-7 max-w-prose text-step-0 text-ink-soft">{hero.summary}</p>
+    <p class="mt-7 max-w-prose border-l-2 border-banana pl-5 text-step-0">
+      {hero.impact}
+    </p>
+    <ul class="m-0 mt-8 flex list-none flex-wrap gap-x-6 gap-y-2 p-0" aria-label="Contact and Resume">
+      {
+        contactLinks.map((link) => (
+          <li>
+            <a class="inline-flex min-h-11 items-center text-accent underline decoration-1 underline-offset-4" href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+      <li>
+        <a class="inline-flex min-h-11 items-center text-accent underline decoration-1 underline-offset-4" href={RESUME_PDF_URL} download>Resume (PDF)</a>
+      </li>
+    </ul>
+  </div>
+</section>

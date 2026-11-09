@@ -9,20 +9,21 @@ const facts = items.filter((item) => item.data.kind !== "bio");
 ---
 
 <section
+  id="about"
   aria-labelledby="about-heading"
-  class="mx-auto max-w-3xl px-6 py-16"
+  class="mx-auto max-w-4xl px-6 py-16"
   data-testid="about"
 >
   <h2
     id="about-heading"
-    class="font-display text-step-3 font-extrabold leading-tight tracking-tight"
+    class="font-display text-step-2 font-medium leading-tight tracking-tight"
   >
     About
   </h2>
-  {bio.map((item) => <p class="mt-4 text-step-1">{item.data.text}</p>)}
+  {bio.map((item) => <p class="mt-5 max-w-prose text-step-0 text-ink-soft">{item.data.text}</p>)}
   {
     facts.length > 0 && (
-      <ul class="mt-4 list-disc space-y-1 pl-6 text-step-1">
+      <ul class="mt-5 list-disc space-y-2 pl-5 text-step-0 text-ink-soft">
         {facts.map((item) => (
           <li>{item.data.text}</li>
         ))}

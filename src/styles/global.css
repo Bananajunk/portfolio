@@ -42,6 +42,13 @@
   h3 {
     font-family: var(--font-display);
   }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
 }
 
 /* Unlayered so it beats the display utilities: controls need JS. */

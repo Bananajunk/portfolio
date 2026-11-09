@@ -1,0 +1,10 @@
+[
+  {
+    "id": "hero",
+    "name": "Liam Reid",
+    "title": "Senior Software Engineer",
+    "summary": "Senior full-stack engineer (React, TypeScript, Ruby on Rails, Node, GraphQL) with 10+ years building consumer and marketplace products at Shopify, Faire and Owner.com. Leads multi-engineer product and accessibility initiatives end to end, from design doc to rollout, and builds with agentic AI tooling as a default.",
+    "impact": "Led WCAG 2.2 AA remediation across menu, cart and checkout for two external audits.",
+    "source": { "kind": "resume" }
+  }
+]

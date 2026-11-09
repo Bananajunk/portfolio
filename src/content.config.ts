@@ -138,7 +138,21 @@ const about = defineCollection({
     }),
 });
 
+const hero = defineCollection({
+  loader: file("src/content/hero.json"),
+  schema: z.strictObject({
+    id: z.string().min(1),
+    name: z.string().min(1),
+    title: z.string().min(1),
+    summary: claimText.min(1),
+    /** One verified line of impact for the 30-second skim. */
+    impact: claimText.min(1),
+    source,
+  }),
+});
+
 export const collections = {
+  hero,
   roles,
   stories,
   skills,
