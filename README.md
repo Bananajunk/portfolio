@@ -63,6 +63,8 @@ headers and cache rules are in `public/_headers`.
 
 ## Notes
 
-- `typescript` is pinned to 6.x because `astro check` does not support 7 yet.
-- A pnpm override pins `@emnapi/runtime` because `astro check`'s dependency
-  otherwise resolves a mismatched beta and crashes.
+- `typescript` is pinned to 6.x because `astro check` does not support 7 yet
+  (Astro points to `@astrojs/ts-content-mapper` for TS 7.1+).
+- A pnpm override pins `@astrojs/astro2tsx` to 0.1.4 because the 0.1.3 that
+  `@astrojs/check` resolves crashes on a mismatched `@emnapi/runtime`. Drop the
+  override once `@astrojs/check` picks up 0.1.4.
