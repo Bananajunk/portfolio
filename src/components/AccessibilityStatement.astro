@@ -1,0 +1,87 @@
+---
+// Accessibility statement. Keep the "tested" and "pending" lists in step with
+// docs/a11y-testing.md; do not claim more than that record shows.
+const reviewed = "9 November 2026";
+const issues = "https://github.com/Bananajunk/portfolio/issues";
+const link =
+  "inline-flex min-h-11 items-center text-accent underline underline-offset-4";
+---
+
+<section
+  id="accessibility"
+  aria-labelledby="accessibility-heading"
+  class="mx-auto max-w-4xl px-6 py-16"
+  data-testid="accessibility-statement"
+>
+  <h2
+    id="accessibility-heading"
+    class="font-display text-step-2 font-medium leading-tight tracking-tight"
+  >
+    Accessibility statement
+  </h2>
+  <p class="mt-5 max-w-prose text-step-0 text-ink-soft">
+    This Site aims to conform to WCAG 2.2 level AA. It has not been independently
+    audited, so this is a goal and not a claim of full conformance. Last
+    reviewed {reviewed}.
+  </p>
+
+  <h3 class="mt-10 font-display text-step-1 font-medium leading-tight">
+    What was tested and how
+  </h3>
+  <ul class="mt-4 max-w-prose list-disc space-y-2 pl-5 text-step-0 text-ink-soft">
+    <li>
+      Automated checks with axe-core on every build, in all three Time of day
+      themes with Calm mode on and off.
+    </li>
+    <li>
+      Keyboard-only use in Chromium: tab order, visible focus, a skip link, no
+      keyboard traps and focus not hidden behind the sticky navigation.
+    </li>
+    <li>
+      Reflow at 200% and 400% zoom (a 320 CSS pixel wide window), with no
+      horizontal scrolling.
+    </li>
+    <li>
+      Forced colours mode, reduced motion and Calm mode, and touch target size
+      (at least 24 by 24 CSS pixels, aiming for 44).
+    </li>
+    <li>
+      The sticker board can be used without dragging: select a sticker, then use
+      the arrow buttons, arrow keys or click a spot.
+    </li>
+    <li>Text and interface colour contrast, checked on every build.</li>
+  </ul>
+
+  <h3 class="mt-10 font-display text-step-1 font-medium leading-tight">
+    Known limitations and pending checks
+  </h3>
+  <ul class="mt-4 max-w-prose list-disc space-y-2 pl-5 text-step-0 text-ink-soft">
+    <li>
+      Not yet tested with a screen reader. A VoiceOver pass in Safari on macOS
+      and VoiceOver on iOS are still to be done.
+    </li>
+    <li>
+      Not yet tested on real touch devices or with browsers other than Chromium
+      beyond the checks above.
+    </li>
+    <li>
+      Automated and scripted checks catch only part of WCAG 2.2, so there may be
+      issues they do not find.
+    </li>
+    <li>
+      The Resume PDF download has not been checked with assistive technology.
+      The same facts are on this page as text.
+    </li>
+  </ul>
+
+  <h3 class="mt-10 font-display text-step-1 font-medium leading-tight">
+    Report a problem
+  </h3>
+  <p class="mt-4 max-w-prose text-step-0 text-ink-soft">
+    If something here is hard to use, tell me and I will aim to reply within a
+    few business days. Email{" "}
+    <a class={link} href="mailto:cl2reid@gmail.com">cl2reid@gmail.com</a>
+    or{" "}
+    <a class={link} href={issues}>open an issue on GitHub</a>.
+  </p>
+</section>
