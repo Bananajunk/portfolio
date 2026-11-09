@@ -2,6 +2,7 @@
  * Pure logic for the build-time content checks, so it can be tested without
  * touching the filesystem.
  */
+import { formatDates } from "../src/lib/dates.ts";
 
 export interface RoleData {
   id: string;
@@ -19,21 +20,6 @@ export interface ResumeJob {
   when: string;
   location: string;
 }
-
-const MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
 
 function decode(html: string): string {
   return html
@@ -62,16 +48,7 @@ export function parseResumeJobs(html: string): ResumeJob[] {
   return jobs;
 }
 
-function formatYearMonth(value: string): string {
-  if (value === "present") return "Present";
-  const [year = "", month = ""] = value.split("-");
-  return `${MONTHS[Number(month) - 1]} ${year}`;
-}
-
-/** Dates as the Resume prints them, e.g. "Sep 2025 – Present". */
-export function formatDates(role: Pick<RoleData, "start" | "end">): string {
-  return `${formatYearMonth(role.start)} – ${formatYearMonth(role.end)}`;
-}
+export { formatDates };
 
 export interface Finding {
   level: "warn" | "info";
@@ -169,3 +146,20 @@ export const CONTENT_FILES = [
   "earlier",
   "about",
 ] as const;
+
+export interface ResumeEducation {
+  school: string;
+  degree: string;
+  when: string;
+}
+
+/** Reads the Education entries out of the Resume HTML. */
+export function parseResumeEducation(html: string): ResumeEducation[] {
+  const pattern =
+    /<div class="edu"><span><strong>(.*?)<\/strong>\s*·\s*(.*?)<\/span><span class="when">(.*?)<\/span>/g;
+  return [...html.matchAll(pattern)].map((m) => ({
+    school: decode(m[1] ?? ""),
+    degree: decode(m[2] ?? ""),
+    when: decode(m[3] ?? ""),
+  }));
+}

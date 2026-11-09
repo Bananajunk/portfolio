@@ -10,6 +10,7 @@
     "preview": "astro preview",
     "check": "pnpm check:contrast && astro check && biome check .",
     "check:contrast": "node scripts/check-contrast.mjs",
+    "check:seo": "node scripts/check-seo.mjs",
     "check:launch": "node scripts/check-launch-ready.ts",
     "test": "node --test \"scripts/*.test.ts\"",
     "format": "biome check --write .",
@@ -29,6 +30,8 @@
     "@types/node": "^24.19.2",
     "astro": "^7.4.7",
     "axe-core": "4.14.0",
+    "fontkitten": "1.0.3",
+    "sharp": "0.35.5",
     "tailwindcss": "^4.3.5",
     "typescript": "^6.0.3",
     "wrangler": "^4.158.0"
