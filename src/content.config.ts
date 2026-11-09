@@ -54,22 +54,30 @@ const roles = defineCollection({
   }),
 });
 
+/** One source or several; always normalised to a list. */
+const sources = z
+  .union([source, z.array(source).min(1)])
+  .transform((s) => (Array.isArray(s) ? s : [s]));
+
+/** A written part of a Story: text plus where it is traceable to. */
+const storyPart = z.strictObject({
+  text: claimText.min(1),
+  source: sources,
+});
+
 /**
- * One of the four parts of a Story. Empty text is allowed only while it is
- * marked unverified; filled text needs a source.
+ * Trade-offs may be empty: the Site then omits the block entirely rather than
+ * rendering a blank one. Written text still needs a source.
  */
-const storyPart = z
+const optionalStoryPart = z
   .strictObject({
     text: claimText,
-    source: source.optional(),
-    unverified: z.boolean().optional(),
-  })
-  .refine((p) => p.text !== "" || p.unverified === true, {
-    message: "An empty part must be marked unverified",
+    source: sources.optional(),
   })
   .refine((p) => p.text === "" || p.source !== undefined, {
     message: "A written part needs a source",
-  });
+  })
+  .transform((p) => ({ text: p.text, source: p.source ?? [] }));
 
 const stories = defineCollection({
   loader: file("src/content/stories.json"),
@@ -77,9 +85,11 @@ const stories = defineCollection({
     id: z.string().min(1),
     order: z.number().int(),
     title: z.string().min(1),
+    /** The Role this Story belongs to; it reuses that Card's tint. */
+    role: z.string().min(1),
     problem: storyPart,
     whatIDid: storyPart,
-    tradeoffs: storyPart,
+    tradeoffs: optionalStoryPart,
     outcome: storyPart,
     /** Topics Liam has yet to confirm; any entry fails the launch-readiness check. */
     unverified: z.array(z.string().min(1)).default([]),
