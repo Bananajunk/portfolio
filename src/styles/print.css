@@ -1,0 +1,54 @@
+/*
+ * Print: a clean single-column one-pager. Hides anything marked
+ * data-print="hide" plus nav and toys, and drops decoration. Utilities
+ * still win by layer order, so components avoid layout utilities that
+ * fight this (use the print: variant instead).
+ */
+@layer components {
+  @media print {
+    @page {
+      margin: 0.5in;
+    }
+
+    html,
+    body {
+      background: #fff;
+      color: #000;
+      font-size: 11pt;
+    }
+
+    nav,
+    [data-print="hide"],
+    [data-toy] {
+      display: none !important;
+    }
+
+    main,
+    section,
+    footer {
+      display: block;
+      max-width: none;
+      padding: 0 0 0.75rem;
+      margin: 0;
+      break-inside: avoid;
+    }
+
+    * {
+      background: transparent !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    a[href^="http"]::after {
+      content: " (" attr(href) ")";
+      font-size: 0.85em;
+    }
+  }
+}
