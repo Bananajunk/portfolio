@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import { formatDates } from "../lib/dates.ts";
+
+const earlier = (await getCollection("earlier")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const education = (await getCollection("education")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section
+  id="before-that"
+  aria-labelledby="before-that-heading"
+  class="mx-auto max-w-4xl px-6 py-16"
+  data-testid="before-that"
+>
+  <h2
+    id="before-that-heading"
+    class="font-display text-step-2 font-medium leading-tight tracking-tight"
+  >
+    Before that
+  </h2>
+  <ul class="mt-5 list-none space-y-3 p-0 text-step-0">
+    {
+      earlier.map(({ data: job }) => (
+        <li>
+          <strong class="font-medium">{job.org}</strong>, {job.title}
+          <span class="text-ink-soft">
+            {" "}
+            ({formatDates(job)}, {job.location})
+          </span>
+          {job.summary && <span class="text-ink-soft">. {job.summary}</span>}
+        </li>
+      ))
+    }
+  </ul>
+  <h3 class="mt-10 font-display text-step-1 font-medium leading-tight tracking-tight">
+    Education
+  </h3>
+  <ul class="mt-4 list-none space-y-3 p-0 text-step-0">
+    {
+      education.map(({ data: school }) => (
+        <li>
+          <strong class="font-medium">{school.school}</strong>, {school.degree}
+          <span class="text-ink-soft">
+            {" "}
+            ({school.startYear} – {school.endYear})
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</section>

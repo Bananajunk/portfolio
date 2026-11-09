@@ -8,35 +8,51 @@
     "end": "present",
     "location": "Remote",
     "size": "large",
+    "tint": "peach",
+    "scope": "Online Ordering, the guest-facing menu, cart and checkout, across web, branded app and kiosk.",
     "context": "Online Ordering: the guest-facing menu, cart and checkout experience, shipped across web, branded app and kiosk.",
     "claims": [
       {
         "text": "Led WCAG 2.2 AA remediation across menu, cart and checkout for two external audits: closed 131 of 161 findings from one, triaged 109 from the other into root-cause tickets, and personally fixed 120+ of ~280 findings, including two committed in a lawsuit response.",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       },
       {
         "text": "Built an internal accessibility portal for the whole engineering org (185 of 191 PRs): agentic audits of live storefronts, pull requests, vendor reports and legal demand letters, findings auto-filed to Linear, every release audited automatically. Launched org-wide Sep 2026; used by Engineering, Legal and CS.",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       },
       {
         "text": "Productionized a Playwright + axe-core accessibility suite: critical checks on every pull request, full suite daily, agent-written root-cause reports on failures.",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       },
       {
         "text": "Led Include Utensils, a single feature spanning web, branded app, kiosk, POS, kitchen tickets, restaurant settings and an in-product AI agent: wrote the TDD, broke it into 37 tickets across 6 milestones, coordinated the teams on each surface, and rolled it out to 100% of restaurants (Nov 2026).",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       },
       {
         "text": "Designed and built Unified Client Cart State, making the server cart the single source of truth for checkout intent and retiring a divergent localStorage store behind race conditions; shipped behind shadow-write and cutover flags to 100% of staging.",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       },
       {
         "text": "Cut \"order already placed\" checkout errors ~85% on rollout (83 to 13 per day) with a flag-gated cart-validation dialog, shipped in my first two weeks.",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       },
       {
         "text": "Authored reusable agent skills (WCAG audit, comment audit) and ran Codex and Claude Code daily: overnight bug reproductions, second-pass reviews, agent-drafted rollout plans.",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       }
     ]
   },
@@ -49,18 +65,26 @@
     "end": "2025-09",
     "location": "Remote",
     "size": "small",
+    "tint": "sky",
+    "scope": "Engineering lead on shipping-platform projects for the brand and retailer portals.",
     "claims": [
       {
         "text": "Engineering lead on several shipping-platform projects for the brand and retailer portals, setting product goals and coordinating contributing engineers.",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       },
       {
         "text": "Reworked the address form in the base component library, improving localization and address data quality on every Faire surface.",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       },
       {
         "text": "Shipped the frontend for multiple new product flows in React and TypeScript.",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       }
     ]
   },
@@ -73,14 +97,20 @@
     "end": "2023-05",
     "location": "Waterloo, ON & Remote",
     "size": "small",
+    "tint": "mint",
+    "scope": "Full-stack on Flow and the Shop app.",
     "claims": [
       {
         "text": "Full-stack on Flow and the Shop app: built a Kafka-driven event platform and React front ends for the Shop sales channel (Rails, React, TypeScript, Redux, GraphQL).",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       },
       {
         "text": "Led projects that improved performance and reliability of Shopify's web platforms.",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       }
     ]
   },
@@ -93,10 +123,14 @@
     "end": "2019-05",
     "location": "Waterloo, ON",
     "size": "small",
+    "tint": "lilac",
+    "scope": "Company-wide internal tooling: CRM, inventory and activation.",
     "claims": [
       {
         "text": "Built company-wide internal tooling: a React CRM platform, inventory and sales management, and the activation and calling platform (Rails, React, PHP, Go).",
-        "source": { "kind": "resume" }
+        "source": {
+          "kind": "resume"
+        }
       }
     ]
   }
