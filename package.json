@@ -6,9 +6,11 @@
   "packageManager": "pnpm@12.11.2",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/check-resume-drift.ts && astro build",
     "preview": "astro preview",
     "check": "astro check && biome check .",
+    "check:launch": "node scripts/check-launch-ready.ts",
+    "test": "node --test \"scripts/*.test.ts\"",
     "format": "biome check --write .",
     "deploy": "pnpm build && wrangler deploy"
   },
@@ -16,6 +18,7 @@
     "@astrojs/check": "^0.9.12",
     "@biomejs/biome": "^2.6.6",
     "@tailwindcss/vite": "^4.3.5",
+    "@types/node": "^24.19.2",
     "astro": "^7.4.7",
     "tailwindcss": "^4.3.5",
     "typescript": "^6.0.3",

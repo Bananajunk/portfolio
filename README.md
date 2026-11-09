@@ -23,6 +23,8 @@ pnpm dev       # http://localhost:4321
 | `pnpm build`   | Static build to `dist/`                              |
 | `pnpm preview` | Serve the built site locally                         |
 | `pnpm check`   | `astro check` (types) then `biome check` (lint/format) |
+| `pnpm test`    | Unit tests for the content checks (`node --test`)    |
+| `pnpm check:launch` | Fails while any content is still `unverified`   |
 | `pnpm format`  | Apply Biome fixes                                    |
 | `pnpm deploy`  | Build, then `wrangler deploy` (needs Cloudflare auth) |
 
@@ -42,6 +44,27 @@ theme, base, components, motion, utilities
 
 All motion must respect Calm mode and `prefers-reduced-motion`
 ([ADR 0004](docs/adr/0004-calm-mode-and-motion-policy.md)).
+
+## Content
+
+Content is data, not markup. Roles, Stories, skills, education, Before that
+and About live in `src/content/*.json`, loaded as Astro content collections
+with strict schemas in `src/content.config.ts` (unknown fields fail the
+build). Every Claim carries a `source` (Resume, LinkedIn, spec #1 or a named
+public source).
+
+- **Claim rules** are linted in `src/content/claim-rules.ts` when the
+  collections load, so a breach fails `pnpm build`. The banned-name list is a
+  seed; extend it.
+- **Resume drift:** `pnpm build` first compares Role titles, dates and
+  locations with `resume.html` and warns on any difference (it never fails).
+  A `reconciledFrom` field records a title the Site deliberately changed, such
+  as Faire ([ADR 0003](docs/adr/0003-resume-html-is-source-of-truth.md)).
+- **Unverified:** anything Liam has not confirmed is marked `unverified`
+  (empty Story parts must be). `pnpm check:launch` fails while any remain.
+  Normal `pnpm check` and `pnpm build` stay green.
+- `resume.html` and `resume.pdf` at the repo root are the committed Resume.
+  They hold the phone number, so they are not in `public/`.
 
 ## Deployment
 

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "microsoft-yammer",
+    "order": 1,
+    "org": "Microsoft (Yammer)",
+    "title": "Software Development Engineer",
+    "start": "2014-09",
+    "end": "2014-12",
+    "location": "San Francisco Bay Area",
+    "summary": "Deployment tooling for Yammer.",
+    "source": { "kind": "linkedin" }
+  },
+  {
+    "id": "desire2learn",
+    "order": 2,
+    "org": "Desire2Learn",
+    "title": "Deployment Specialist and Automation Specialist",
+    "start": "2013-01",
+    "end": "2014-08",
+    "location": "Kitchener, ON",
+    "source": { "kind": "linkedin" }
+  }
+]
