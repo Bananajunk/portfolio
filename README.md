@@ -120,7 +120,7 @@ headers and cache rules are in `public/_headers`.
   `wrangler.jsonc` must match the Worker connected in the dashboard.
 - **Custom domains are not attached yet.** Attaching `bananajunk.dev` makes
   Cloudflare take over its DNS, so the commented `routes` in `wrangler.jsonc`
-  are enabled only at launch (ticket #13). Vercel keeps serving the old site
+  are enabled only at launch (ticket #13, see `docs/launch.md`). Vercel keeps serving the old site
   until then.
 - **`www` to apex** is a Cloudflare zone Redirect Rule (`www.bananajunk.dev/*`
   to `https://bananajunk.dev/${1}`, 301), created at launch.
