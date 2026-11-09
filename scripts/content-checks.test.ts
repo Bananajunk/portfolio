@@ -71,9 +71,18 @@ test("claim rules catch the forbidden phrasings", () => {
   );
   assert.equal(lintClaimText("Built on Olympus").length, 1);
   assert.equal(lintClaimText("Built Maestro at Shopify").length, 1);
-  assert.equal(lintClaimText("Call (519) 577-8763").length, 1);
+  assert.equal(lintClaimText("Call (555) 010-0199").length, 1);
   assert.equal(
     lintClaimText("rolled out to 100% of restaurants (Nov 2026)").length,
     0,
   );
+});
+
+test("public resume sources contain no phone number", async () => {
+  const { readFileSync } = await import("node:fs");
+  const phone = /\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b/;
+  for (const file of ["resume.html", "src/content/roles.json"]) {
+    const text = readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
+    assert.equal(phone.test(text), false, `${file} contains a phone number`);
+  }
 });
