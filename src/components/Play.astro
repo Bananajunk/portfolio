@@ -1,0 +1,181 @@
+---
+// Play (see GLOSSARY.md): two accessible toys. Everything here needs JS, so the
+// whole toy area stays hidden until /theme-init.js sets data-js.
+const stickers = [
+  {
+    id: "banana",
+    label: "Banana",
+    glyph: "🍌",
+    tint: "bg-banana",
+    col: 1,
+    row: 1,
+  },
+  {
+    id: "star",
+    label: "Star",
+    glyph: "⭐",
+    tint: "bg-tint-sky",
+    col: 4,
+    row: 3,
+  },
+  {
+    id: "heart",
+    label: "Heart",
+    glyph: "💜",
+    tint: "bg-tint-lilac",
+    col: 6,
+    row: 0,
+  },
+  {
+    id: "leaf",
+    label: "Leaf",
+    glyph: "🍃",
+    tint: "bg-tint-mint",
+    col: 8,
+    row: 4,
+  },
+  {
+    id: "peach",
+    label: "Peach",
+    glyph: "🍑",
+    tint: "bg-tint-peach",
+    col: 9,
+    row: 1,
+  },
+];
+const arrows = [
+  { dir: "up", label: "Move up", glyph: "↑", place: "col-start-2" },
+  {
+    dir: "left",
+    label: "Move left",
+    glyph: "←",
+    place: "col-start-1 row-start-2",
+  },
+  {
+    dir: "down",
+    label: "Move down",
+    glyph: "↓",
+    place: "col-start-2 row-start-2",
+  },
+  {
+    dir: "right",
+    label: "Move right",
+    glyph: "→",
+    place: "col-start-3 row-start-2",
+  },
+];
+const button =
+  "inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-sm border border-solid border-edge bg-surface px-3 font-text text-step--1 text-ink aria-disabled:cursor-not-allowed aria-disabled:text-ink-soft";
+---
+
+<section
+  id="play"
+  aria-labelledby="play-heading"
+  class="mx-auto max-w-4xl px-6 py-16"
+  data-testid="play"
+  data-print="hide"
+>
+  <h2
+    id="play-heading"
+    class="font-display text-step-2 font-medium leading-tight tracking-tight"
+  >
+    Play
+  </h2>
+  <p class="mt-5 max-w-prose text-step-0 text-ink-soft">
+    Two small toys. Both work with a pointer, a keyboard or plain buttons.
+  </p>
+  <noscript>
+    <p class="mt-5 max-w-prose text-step-0 text-ink-soft">The toys need JavaScript.</p>
+  </noscript>
+
+  <div class="[:root:not([data-js])_&]:hidden" data-play>
+    <div class="mt-10" data-sticker-toy>
+      <h3 class="font-display text-step-1 font-medium leading-tight">Sticker board</h3>
+      <p class="mt-3 max-w-prose text-step-0 text-ink-soft" id="sticker-help">
+        Drag a sticker, or select one and use the arrow buttons or your arrow keys
+        (Shift moves three cells). You can also select a sticker, then click an
+        empty spot on the board to place it there.
+      </p>
+      <p
+        class="mt-3 max-w-prose text-step--1 text-ink"
+        data-calm-note
+        hidden
+      >
+        Calm mode is on, so dragging is switched off. The arrow buttons, arrow keys
+        and click-to-place still work.
+      </p>
+      <div
+        class="relative mt-5 h-72 overflow-hidden rounded-lg border border-solid border-edge bg-surface [&:not([data-ready])]:invisible"
+        role="group"
+        aria-label="Sticker board"
+        aria-describedby="sticker-help"
+        data-board
+        data-testid="sticker-board"
+      >
+        {
+          stickers.map((s) => (
+            <button
+              type="button"
+              class={`absolute left-[calc((100%-2.75rem)*var(--col,0)/10)] top-[calc((100%-2.75rem)*var(--row,0)/5)] flex size-11 touch-none items-center justify-center rounded-lg border-2 border-solid border-edge p-0 text-2xl leading-none text-on-banana data-[selected=true]:z-10 data-[selected=true]:border-ink ${s.tint}`}
+              aria-pressed="false"
+              aria-label={s.label}
+              data-sticker={s.id}
+              data-label={s.label}
+              data-col={s.col}
+              data-row={s.row}
+              data-testid={`sticker-${s.id}`}
+            >
+              <span aria-hidden="true">{s.glyph}</span>
+            </button>
+          ))
+        }
+      </div>
+      <div class="mt-4 flex flex-wrap items-center gap-x-8 gap-y-4">
+        <div class="grid grid-cols-3 gap-1" role="group" aria-label="Move the selected sticker">
+          {
+            arrows.map((a) => (
+              <button
+                type="button"
+                class={`${button} ${a.place}`}
+                aria-label={a.label}
+                data-move={a.dir}
+                data-testid={`move-${a.dir}`}
+              >
+                <span aria-hidden="true">{a.glyph}</span>
+              </button>
+            ))
+          }
+        </div>
+        <button type="button" class={button} data-reset data-testid="sticker-reset">
+          Reset stickers
+        </button>
+      </div>
+      <p class="mt-4 text-step--1 text-ink-soft" data-position data-testid="sticker-position"></p>
+      <p class="sr-only" role="status" aria-live="polite" data-announce></p>
+    </div>
+
+    <div class="mt-14" data-axe-toy>
+      <h3 class="font-display text-step-1 font-medium leading-tight">Axe score</h3>
+      <p class="mt-3 max-w-prose text-step-0 text-ink-soft">
+        Runs the axe accessibility checker on this page, in your browser, right
+        now. It loads only when you ask. Automated checks catch some issues, not
+        all, so a pass is not a full audit.
+      </p>
+      <button type="button" class={`${button} mt-5`} data-axe-run data-testid="axe-run">
+        Run axe on this page
+      </button>
+      <p
+        class="mt-4 max-w-prose text-step-0 text-ink"
+        role="status"
+        aria-live="polite"
+        data-axe-result
+        data-testid="axe-result"
+      >
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/play";
+</script>
