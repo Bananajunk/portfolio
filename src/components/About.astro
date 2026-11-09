@@ -8,13 +8,24 @@ const bio = items.filter((item) => item.data.kind === "bio");
 const facts = items.filter((item) => item.data.kind !== "bio");
 ---
 
-<section aria-labelledby="about-heading" class="mx-auto max-w-3xl px-6 py-16">
-  <h2 id="about-heading" class="text-3xl font-extrabold tracking-tight">About</h2>
-  {bio.map((item) => <p class="mt-4 text-lg">{item.data.text}</p>)}
+<section
+  aria-labelledby="about-heading"
+  class="mx-auto max-w-3xl px-6 py-16"
+  data-testid="about"
+>
+  <h2
+    id="about-heading"
+    class="font-display text-step-3 font-extrabold leading-tight tracking-tight"
+  >
+    About
+  </h2>
+  {bio.map((item) => <p class="mt-4 text-step-1">{item.data.text}</p>)}
   {
     facts.length > 0 && (
-      <ul class="mt-4 list-disc space-y-1 pl-6 text-lg">
-        {facts.map((item) => <li>{item.data.text}</li>)}
+      <ul class="mt-4 list-disc space-y-1 pl-6 text-step-1">
+        {facts.map((item) => (
+          <li>{item.data.text}</li>
+        ))}
       </ul>
     )
   }

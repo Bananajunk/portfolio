@@ -23,19 +23,26 @@ const links = [
 ];
 ---
 
-<footer aria-labelledby="contact-heading" class="mx-auto max-w-3xl px-6 py-16">
-  <h2 id="contact-heading" class="text-3xl font-extrabold tracking-tight">Contact</h2>
-  <ul class="mt-4 space-y-1 text-lg">
+<footer aria-labelledby="contact-heading" class="mx-auto max-w-3xl px-6 py-16"
+  data-testid="contact"
+>
+  <h2
+    id="contact-heading"
+    class="font-display text-step-3 font-extrabold leading-tight tracking-tight"
+  >
+    Contact
+  </h2>
+  <ul class="mt-4 space-y-1 text-step-1">
     {
       links.map((link) => (
         <li>
           {link.label}:{" "}
-          <a class="underline underline-offset-2" href={link.href}>{link.text}</a>
+          <a class="text-accent underline underline-offset-2" href={link.href}>{link.text}</a>
         </li>
       ))
     }
     <li>
-      <a class="underline underline-offset-2" href={RESUME_PDF_URL} download>
+      <a class="text-accent underline underline-offset-2" href={RESUME_PDF_URL} download>
         Download my Resume (PDF, {size})
       </a>
     </li>

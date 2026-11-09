@@ -1,54 +1,64 @@
 /*
  * Print: a clean single-column one-pager. Hides anything marked
- * data-print="hide" plus nav and toys, and drops decoration. Utilities
- * still win by layer order, so components avoid layout utilities that
- * fight this (use the print: variant instead).
+ * data-print="hide", nav, the theme controls and toys, and drops decoration.
+ * Unlayered on purpose, so it beats the layered utilities.
  */
-@layer components {
-  @media print {
-    @page {
-      margin: 0.5in;
-    }
+@media print {
+  @page {
+    margin: 0.5in;
+  }
 
-    html,
-    body {
-      background: #fff;
-      color: #000;
-      font-size: 11pt;
-    }
+  html {
+    color-scheme: light !important;
+  }
 
-    nav,
-    [data-print="hide"],
-    [data-toy] {
-      display: none !important;
-    }
+  html,
+  body {
+    min-height: 0;
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
 
-    main,
-    section,
-    footer {
-      display: block;
-      max-width: none;
-      padding: 0 0 0.75rem;
-      margin: 0;
-      break-inside: avoid;
-    }
+  nav,
+  [data-controls],
+  [data-print="hide"],
+  [data-toy] {
+    display: none !important;
+  }
 
-    * {
-      background: transparent !important;
-      box-shadow: none !important;
-      text-shadow: none !important;
-      animation: none !important;
-      transition: none !important;
-    }
+  main {
+    min-height: 0 !important;
+    place-items: start !important;
+    text-align: left !important;
+  }
 
-    a {
-      color: inherit;
-      text-decoration: underline;
-    }
+  main,
+  section,
+  footer {
+    display: block;
+    max-width: none;
+    padding: 0 0 0.75rem;
+    margin: 0;
+    break-inside: avoid;
+  }
 
-    a[href^="http"]::after {
-      content: " (" attr(href) ")";
-      font-size: 0.85em;
-    }
+  * {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+    color: #000 !important;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
   }
 }
