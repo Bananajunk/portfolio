@@ -1,0 +1,20 @@
+[
+  {
+    "id": "waterloo",
+    "order": 1,
+    "school": "University of Waterloo",
+    "degree": "Bachelor of Computer Science",
+    "startYear": 2010,
+    "endYear": 2015,
+    "source": { "kind": "resume" }
+  },
+  {
+    "id": "laurier",
+    "order": 2,
+    "school": "Wilfrid Laurier University",
+    "degree": "Bachelor of Business Administration",
+    "startYear": 2010,
+    "endYear": 2015,
+    "source": { "kind": "resume" }
+  }
+]

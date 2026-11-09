@@ -1,0 +1,30 @@
+[
+  {
+    "id": "languages",
+    "order": 1,
+    "kind": "language",
+    "text": "Bilingual: French and English.",
+    "source": { "kind": "linkedin" }
+  },
+  {
+    "id": "communitech",
+    "order": 2,
+    "kind": "community",
+    "text": "Communitech Leadership WTF.",
+    "source": { "kind": "linkedin" }
+  },
+  {
+    "id": "speaker-labs",
+    "order": 3,
+    "kind": "community",
+    "text": "Speaker Labs Talk Master.",
+    "source": { "kind": "linkedin" }
+  },
+  {
+    "id": "bio",
+    "order": 4,
+    "kind": "bio",
+    "text": "",
+    "unverified": true
+  }
+]

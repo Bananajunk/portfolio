@@ -1,0 +1,39 @@
+[
+  {
+    "id": "languages",
+    "order": 1,
+    "label": "Languages",
+    "items": ["TypeScript", "JavaScript", "Ruby", "SQL"],
+    "source": { "kind": "resume" }
+  },
+  {
+    "id": "frameworks",
+    "order": 2,
+    "label": "Frameworks",
+    "items": [
+      "React",
+      "Node.js",
+      "Ruby on Rails",
+      "GraphQL",
+      "Redux",
+      "PostgreSQL",
+      "Kafka"
+    ],
+    "source": { "kind": "resume" }
+  },
+  {
+    "id": "tooling",
+    "order": 3,
+    "label": "Tooling",
+    "items": [
+      "Codex",
+      "Claude Code",
+      "agentic workflows",
+      "Playwright",
+      "axe-core",
+      "Datadog",
+      "Git"
+    ],
+    "source": { "kind": "resume" }
+  }
+]

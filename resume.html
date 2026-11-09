@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<title>Liam Reid – Senior Software Engineer</title>
+<style>
+  @page { size: Letter; margin: 0.45in 0.55in; }
+  :root { --accent: #1f5e4a; --ink: #1a1a1a; --muted: #555; --rule: #d9d9d9; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--ink); font-size: 10pt; line-height: 1.3; }
+  a { color: inherit; text-decoration: none; }
+  header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid var(--accent); padding-bottom: 6px; margin-bottom: 8px; }
+  h1 { font-size: 22pt; margin: 0; letter-spacing: -0.3px; color: var(--accent); font-weight: 700; }
+  .title { font-size: 11.5pt; margin: 1px 0 0; color: var(--ink); font-weight: 600; }
+  .contact { text-align: right; font-size: 9.2pt; color: var(--muted); line-height: 1.4; }
+  h2 { font-size: 10pt; text-transform: uppercase; letter-spacing: 1.2px; color: var(--accent); margin: 10px 0 4px; padding-bottom: 2px; border-bottom: 1px solid var(--rule); }
+  p.summary { margin: 0; }
+  .job { margin-top: 6px; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .job-head .org { font-weight: 700; }
+  .job-head .role { font-weight: 400; }
+  .job-head .when { color: var(--muted); font-size: 9.2pt; white-space: nowrap; }
+  .job .context { color: var(--muted); font-size: 9.3pt; margin: 0 0 2px; }
+  ul { margin: 2px 0 0; padding-left: 14px; }
+  li { margin: 0 0 2.5px; padding-left: 2px; }
+  .skills { margin: 0; }
+  .skills div { display: flex; gap: 6px; margin-bottom: 1.5px; }
+  .skills dt { font-weight: 600; min-width: 78px; }
+  .skills dd { margin: 0; }
+  .edu { display: flex; justify-content: space-between; margin-bottom: 1.5px; }
+  .edu .when { color: var(--muted); font-size: 9.2pt; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Liam Reid</h1>
+    <p class="title">Senior Software Engineer</p>
+  </div>
+  <div class="contact">
+    Ottawa, ON · (519) 577-8763 · <a href="mailto:cl2reid@gmail.com">cl2reid@gmail.com</a><br>
+    <a href="https://www.linkedin.com/in/cl2reid/">linkedin.com/in/cl2reid</a> · <a href="https://github.com/Bananajunk">github.com/Bananajunk</a>
+  </div>
+</header>
+
+<h2>Summary</h2>
+<p class="summary">Senior full-stack engineer (React, TypeScript, Ruby on Rails, Node, GraphQL) with 10+ years building consumer and marketplace products at Shopify, Faire and Owner.com. Leads multi-engineer product and accessibility initiatives end to end, from design doc to rollout, and builds with agentic AI tooling as a default.</p>
+
+<h2>Experience</h2>
+
+<div class="job">
+  <div class="job-head">
+    <span><span class="org">Owner.com</span> · <span class="role">Senior Software Engineer</span></span>
+    <span class="when">Sep 2025 – Present · Remote</span>
+  </div>
+  <p class="context">Online Ordering: the guest-facing menu, cart and checkout experience, shipped across web, branded app and kiosk.</p>
+  <ul>
+    <li>Led WCAG 2.2 AA remediation across menu, cart and checkout for two external audits: closed 131 of 161 findings from one, triaged 109 from the other into root-cause tickets, and personally fixed 120+ of ~280 findings, including two committed in a lawsuit response.</li>
+    <li>Built an internal accessibility portal for the whole engineering org (185 of 191 PRs): agentic audits of live storefronts, pull requests, vendor reports and legal demand letters, findings auto-filed to Linear, every release audited automatically. Launched org-wide Sep 2026; used by Engineering, Legal and CS.</li>
+    <li>Productionized a Playwright + axe-core accessibility suite: critical checks on every pull request, full suite daily, agent-written root-cause reports on failures.</li>
+    <li>Led Include Utensils, a single feature spanning web, branded app, kiosk, POS, kitchen tickets, restaurant settings and an in-product AI agent: wrote the TDD, broke it into 37 tickets across 6 milestones, coordinated the teams on each surface, and rolled it out to 100% of restaurants (Nov 2026).</li>
+    <li>Designed and built Unified Client Cart State, making the server cart the single source of truth for checkout intent and retiring a divergent localStorage store behind race conditions; shipped behind shadow-write and cutover flags to 100% of staging.</li>
+    <li>Cut "order already placed" checkout errors ~85% on rollout (83 to 13 per day) with a flag-gated cart-validation dialog, shipped in my first two weeks.</li>
+    <li>Authored reusable agent skills (WCAG audit, comment audit) and ran Codex and Claude Code daily: overnight bug reproductions, second-pass reviews, agent-drafted rollout plans.</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <span><span class="org">Faire</span> · <span class="role">Senior Software Engineer</span></span>
+    <span class="when">Jul 2023 – Sep 2025 · Remote</span>
+  </div>
+  <ul>
+    <li>Engineering lead on several shipping-platform projects for the brand and retailer portals, setting product goals and coordinating contributing engineers.</li>
+    <li>Reworked the address form in the base component library, improving localization and address data quality on every Faire surface.</li>
+    <li>Shipped the frontend for multiple new product flows in React and TypeScript.</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <span><span class="org">Shopify</span> · <span class="role">Senior Frontend Developer</span></span>
+    <span class="when">May 2019 – May 2023 · Waterloo, ON &amp; Remote</span>
+  </div>
+  <ul>
+    <li>Full-stack on Flow and the Shop app: built a Kafka-driven event platform and React front ends for the Shop sales channel (Rails, React, TypeScript, Redux, GraphQL).</li>
+    <li>Led projects that improved performance and reliability of Shopify's web platforms.</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <span><span class="org">TextNow</span> · <span class="role">Software Technical Manager</span></span>
+    <span class="when">Aug 2015 – May 2019 · Waterloo, ON</span>
+  </div>
+  <ul>
+    <li>Built company-wide internal tooling: a React CRM platform, inventory and sales management, and the activation and calling platform (Rails, React, PHP, Go).</li>
+  </ul>
+</div>
+
+<h2>Skills</h2>
+<dl class="skills">
+  <div><dt>Languages</dt><dd>TypeScript, JavaScript, Ruby, SQL</dd></div>
+  <div><dt>Frameworks</dt><dd>React, Node.js, Ruby on Rails, GraphQL, Redux, PostgreSQL, Kafka</dd></div>
+  <div><dt>Tooling</dt><dd>Codex, Claude Code, agentic workflows, Playwright, axe-core, Datadog, Git</dd></div>
+</dl>
+
+<h2>Education</h2>
+<div class="edu"><span><strong>University of Waterloo</strong> · Bachelor of Computer Science</span><span class="when">2010 – 2015</span></div>
+<div class="edu"><span><strong>Wilfrid Laurier University</strong> · Bachelor of Business Administration</span><span class="when">2010 – 2015</span></div>
+
+</body>
+</html>

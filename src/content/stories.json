@@ -1,0 +1,91 @@
+[
+  {
+    "id": "accessibility",
+    "order": 1,
+    "title": "Accessibility",
+    "problem": {
+      "text": "Two external audits found WCAG 2.2 AA failures across the menu, cart and checkout.",
+      "source": { "kind": "resume" }
+    },
+    "whatIDid": {
+      "text": "Led the remediation: closed 131 of 161 findings from one audit, triaged 109 from the other into root-cause tickets, and personally fixed 120+ of ~280 findings. Built an internal accessibility portal for the engineering org and productionized a Playwright + axe-core suite, with critical checks on every pull request and the full suite daily.",
+      "source": { "kind": "resume" }
+    },
+    "tradeoffs": { "text": "", "unverified": true },
+    "outcome": {
+      "text": "The portal launched org-wide in Sep 2026, used by Engineering, Legal and CS, and every release is now audited automatically.",
+      "source": { "kind": "resume" }
+    },
+    "unverified": []
+  },
+  {
+    "id": "flow-2",
+    "order": 2,
+    "title": "Shopify Flow 2.0",
+    "problem": {
+      "text": "Shopify Flow was moving to a new workflow engine and a new drag-and-drop editor.",
+      "source": {
+        "kind": "public",
+        "name": "Shopify Engineering, \"Maestro: The Orchestration Language Powering Shopify Flow\""
+      }
+    },
+    "whatIDid": {
+      "text": "Core engineer on both ends: assisted on the data service layer, so storage could be swapped behind the services without changing callers, and was on the team that built the drag-and-drop editor.",
+      "source": { "kind": "spec", "name": "Bananajunk/portfolio#1, Decisions" }
+    },
+    "tradeoffs": {
+      "text": "For editor state, Recoil won over Redux and plain React state, which lagged past about five cards.",
+      "source": { "kind": "spec", "name": "Bananajunk/portfolio#1, Decisions" }
+    },
+    "outcome": {
+      "text": "Flow's workflows moved to the new engine and editor, as Shopify's public engineering post describes.",
+      "source": {
+        "kind": "public",
+        "name": "Shopify Engineering, \"Maestro: The Orchestration Language Powering Shopify Flow\""
+      }
+    },
+    "unverified": [
+      "The name for the data service layer pattern (the \"repository pattern\" wording)",
+      "The exact list of libraries tested for the editor",
+      "Team size"
+    ]
+  },
+  {
+    "id": "include-utensils",
+    "order": 3,
+    "title": "Include Utensils",
+    "problem": {
+      "text": "One feature had to land consistently on web, the branded app, kiosk, POS, kitchen tickets, restaurant settings and an in-product AI agent.",
+      "source": { "kind": "resume" }
+    },
+    "whatIDid": {
+      "text": "Wrote the TDD, broke it into 37 tickets across 6 milestones, and coordinated the teams on each surface.",
+      "source": { "kind": "resume" }
+    },
+    "tradeoffs": { "text": "", "unverified": true },
+    "outcome": {
+      "text": "Rolled out to 100% of restaurants in Nov 2026.",
+      "source": { "kind": "resume" }
+    },
+    "unverified": []
+  },
+  {
+    "id": "unified-client-cart-state",
+    "order": 4,
+    "title": "Unified Client Cart State",
+    "problem": {
+      "text": "A divergent localStorage store for checkout intent sat behind race conditions with the server cart.",
+      "source": { "kind": "resume" }
+    },
+    "whatIDid": {
+      "text": "Designed and built it so the server cart is the single source of truth for checkout intent, shipped behind shadow-write and cutover flags.",
+      "source": { "kind": "resume" }
+    },
+    "tradeoffs": { "text": "", "unverified": true },
+    "outcome": {
+      "text": "Built to 100% of staging.",
+      "source": { "kind": "resume" }
+    },
+    "unverified": []
+  }
+]
