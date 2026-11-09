@@ -11,3 +11,6 @@ dist/
 npm-debug.log*
 pnpm-debug.log*
 *.tsbuildinfo
+.lighthouseci/
+test-results/
+playwright-report/
