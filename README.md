@@ -24,7 +24,19 @@ pnpm dev       # http://localhost:4321
 | `pnpm preview` | Serve the built site locally                         |
 | `pnpm check`   | `astro check` (types) then `biome check` (lint/format) |
 | `pnpm format`  | Apply Biome fixes                                    |
+| `pnpm budget`  | Fail if first-load JS is over ~30 KB gzipped (needs `dist/`) |
+| `pnpm linkcheck` | Check internal and external links in `dist/` (`SKIP_EXTERNAL=1` skips the network) |
+| `pnpm axe`     | Playwright + axe-core against the preview (needs `dist/` and `pnpm exec playwright install chromium`) |
+| `pnpm lighthouse` | Lighthouse CI against `dist/`, 100/100/100 and LCP under 1s (needs Chrome, or `CHROME_PATH`) |
 | `pnpm deploy`  | Build, then `wrangler deploy` (needs Cloudflare auth) |
+
+## CI gates
+
+`.github/workflows/ci.yml` runs on every PR and on `main`: type check and lint,
+build, JS budget, link check, axe and Lighthouse. Each job is a separate PR
+check. The axe matrix lives in `tests/states.ts`; flip `CONTROLS_READY` once the
+Time of day and Calm mode controls exist so it covers day/dusk/night with Calm
+on and off.
 
 ## Styling
 
