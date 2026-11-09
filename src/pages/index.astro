@@ -1,20 +1,19 @@
 ---
 import About from "../components/About.astro";
 import Contact from "../components/Contact.astro";
+import Hero from "../components/Hero.astro";
 import Base from "../layouts/Base.astro";
 ---
 
 <Base
-  title="Liam Reid | bananajunk.dev"
-  description="Liam Reid's personal site is coming soon."
+  title="Liam Reid | Senior Software Engineer | bananajunk.dev"
+  description="Liam Reid is a senior full-stack engineer who leads product and accessibility work end to end. Email, LinkedIn, GitHub and Resume."
 >
-  <main class="grid min-h-dvh place-items-center p-8 text-center">
-    <div>
-      <h1 class="font-display text-step-5 font-extrabold leading-none tracking-tight">Coming soon</h1>
-      <p class="mt-4 text-step-1">Liam Reid's new site is on its way.</p>
-    </div>
+  <main id="main" tabindex="-1">
+    <Hero />
+    <!-- Slots in page order: #7 Work, #8 Stories, #10 Before that. -->
+    <About />
+    <!-- Slot: #11 Play. -->
   </main>
-  <!-- #9 sections: #6's page composition moves these into place. -->
-  <About />
   <Contact />
 </Base>
