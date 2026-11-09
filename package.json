@@ -12,11 +12,18 @@
     "check:launch": "node scripts/check-launch-ready.ts",
     "test": "node --test \"scripts/*.test.ts\"",
     "format": "biome check --write .",
-    "deploy": "pnpm build && wrangler deploy"
+    "deploy": "pnpm build && wrangler deploy",
+    "budget": "node scripts/check-js-budget.mjs",
+    "axe": "playwright test",
+    "lighthouse": "lhci autorun",
+    "linkcheck": "node scripts/check-links.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "@axe-core/playwright": "^4.14.0",
     "@biomejs/biome": "^2.6.6",
+    "@lhci/cli": "^0.16.0",
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/vite": "^4.3.5",
     "@types/node": "^24.19.2",
     "astro": "^7.4.7",
