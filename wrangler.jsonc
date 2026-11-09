@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bananajunk",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "workers_dev": true,
+  "preview_urls": true
+
+  // Custom domains are intentionally NOT enabled yet. Attaching them makes
+  // Cloudflare take over bananajunk.dev DNS, which would cut over from Vercel
+  // before launch (ticket #13). Uncomment at launch:
+  //
+  // "routes": [
+  //   { "pattern": "bananajunk.dev", "custom_domain": true },
+  //   { "pattern": "www.bananajunk.dev", "custom_domain": true }
+  // ]
+  //
+  // www -> apex is a zone Redirect Rule (see README), not a Worker.
+}

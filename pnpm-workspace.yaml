@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: true
+  workerd: true
+overrides:
+  # astro check's astro2tsx pairs @emnapi/core 1.x with a beta 2.x runtime and crashes.
+  "@emnapi/runtime": 1.11.3
