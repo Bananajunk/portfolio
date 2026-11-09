@@ -1,0 +1,18 @@
+/*
+ * Hand-written motion lives here and only here: keyframes, scroll-driven
+ * animation and transitions. Layout, spacing and colour use Tailwind
+ * utilities and theme tokens. Every animation must respect Calm mode and
+ * prefers-reduced-motion (ADR 0004).
+ */
+@layer motion {
+  /* Baseline: honour the OS setting until Calm mode lands (ticket #4). */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

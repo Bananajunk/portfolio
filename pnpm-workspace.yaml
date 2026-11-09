@@ -1,0 +1,9 @@
+allowBuilds:
+  esbuild: true
+  workerd: true
+minimumReleaseAgeExclude:
+  - "@astrojs/astro2tsx@0.1.4"
+overrides:
+  # @astrojs/check still resolves astro2tsx 0.1.3, which crashes on a beta
+  # @emnapi/runtime. 0.1.4 pins a matching runtime. Drop once check updates.
+  "@astrojs/astro2tsx": 0.1.4

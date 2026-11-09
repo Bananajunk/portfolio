@@ -1,0 +1,40 @@
+/*
+ * Cascade layers, lowest to highest priority. Keep this list the single
+ * source of truth for ordering (see README "Styling").
+ *
+ *   theme       Tailwind v4 theme tokens (CSS variables)
+ *   base        resets and element defaults
+ *   components  hand-written component CSS (rare)
+ *   motion      keyframes and scroll-driven animation (src/styles/motion.css)
+ *   utilities   Tailwind utilities
+ */
+@layer theme, base, components, motion, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "./motion.css";
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background: #fff8e1;
+    color: #1b1b1b;
+    font-family: system-ui, sans-serif;
+    line-height: 1.5;
+  }
+
+  :focus-visible {
+    outline: 3px solid #1b1b1b;
+    outline-offset: 3px;
+  }
+}
