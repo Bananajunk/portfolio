@@ -1,4 +1,6 @@
 ---
+import ExperienceControls from "./ExperienceControls.astro";
+
 // Quiet sticky nav. Only sections that exist get a link; add the next one here
 // as each section lands: #7 Work (#work), #8 Stories (#stories),
 // #10 Before that (#before-that), #11 Play (#play).
@@ -13,7 +15,7 @@ const links = [
 ];
 ---
 
-<header class="site-header mx-auto flex max-w-4xl justify-start px-6 pt-5" data-print="hide" data-testid="site-header">
+<header class="site-header mx-auto flex max-w-4xl items-start justify-between gap-2 px-6 pt-5" data-print="hide" data-testid="site-header">
   <nav aria-label="Sections" class="rounded-lg bg-bg px-1" data-testid="site-nav">
     <ul class="m-0 flex list-none flex-wrap items-center gap-1 p-0">
       {
@@ -27,6 +29,7 @@ const links = [
       }
     </ul>
   </nav>
+  <ExperienceControls />
 </header>
 
 <style is:global>

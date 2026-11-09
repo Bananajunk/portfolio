@@ -1,6 +1,5 @@
 ---
 import "../styles/global.css";
-import ExperienceControls from "../components/ExperienceControls.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 
 interface Props {
@@ -38,7 +37,6 @@ const { title, description } = Astro.props;
   <body>
     <a class="skip-link" href="#main" data-print="hide">Skip to main content</a>
     <SiteHeader />
-    <ExperienceControls />
     <slot />
   </body>
 </html>

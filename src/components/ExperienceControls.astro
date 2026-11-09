@@ -1,19 +1,32 @@
 ---
-// Time of day slider, presets and Calm mode toggle. Hidden until JS runs
-// (html[data-js]); the stored choice is applied earlier by /theme-init.js.
+// A native disclosure keeps optional display preferences out of the page flow.
+// Hidden without JS; /theme-init.js still applies saved choices before paint.
 ---
 
-<section
-  class="mx-auto flex max-w-4xl flex-wrap items-center gap-x-8 gap-y-2 px-6 pt-3 text-step--1 text-ink-soft"
-  aria-label="Display settings"
-  data-controls
-  data-testid="experience-controls"
->
-  <div class="flex flex-wrap items-center gap-x-3 gap-y-0">
-    <label for="tod-slider" class="font-normal">Time of day</label>
+<details class="relative shrink-0" data-controls data-display-settings>
+  <summary
+    class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-sm bg-bg text-ink-soft hover:text-ink [&::-webkit-details-marker]:hidden"
+    aria-label="Display settings"
+    title="Display settings"
+    data-testid="display-settings-trigger"
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" stroke-linecap="round" />
+    </svg>
+  </summary>
+  <section
+    class="absolute right-0 top-full z-20 mt-2 box-border max-h-[calc(100dvh-6rem)] w-[min(20rem,calc(100vw-3rem))] overflow-y-auto rounded-lg border border-solid border-edge bg-surface p-5 text-step--1 text-ink"
+    aria-label="Display settings"
+    data-testid="experience-controls"
+  >
+    <div class="flex items-center justify-between gap-4">
+      <label for="tod-slider">Time of day</label>
+      <output for="tod-slider" class="text-ink-soft" data-tod-value>Day</output>
+    </div>
     <input
       id="tod-slider"
-      class="h-11 w-20 accent-accent"
+      class="m-0 h-11 w-full accent-accent"
       type="range"
       min="0"
       max="2"
@@ -23,15 +36,12 @@
       data-tod-slider
       data-testid="time-of-day-slider"
     />
-    <output for="tod-slider" class="sr-only" data-tod-value
-      >Day</output
-    >
-    <div class="flex gap-0" role="group" aria-label="Time of day presets">
+    <div class="flex justify-between" role="group" aria-label="Time of day presets">
       {
         ["day", "dusk", "night"].map((theme) => (
           <button
             type="button"
-            class="min-h-11 min-w-11 cursor-pointer border-0 bg-transparent px-2 font-text text-step--1 text-ink-soft aria-pressed:text-ink aria-pressed:underline aria-pressed:underline-offset-4"
+            class="min-h-11 min-w-11 cursor-pointer rounded-sm border-0 bg-transparent px-2 font-text text-step--1 text-ink-soft aria-pressed:text-ink aria-pressed:underline aria-pressed:underline-offset-4"
             aria-pressed="false"
             data-theme-preset={theme}
             data-testid={`theme-preset-${theme}`}
@@ -41,20 +51,22 @@
         ))
       }
     </div>
-  </div>
-  <label class="flex min-h-11 cursor-pointer items-center gap-2" for="calm-toggle">
-    <input
-      id="calm-toggle"
-      class="m-0 h-4 w-4 accent-accent"
-      type="checkbox"
-      role="switch"
-      data-calm-toggle
-      data-testid="calm-toggle"
-    />
-    Calm mode
-    <span class="sr-only">(turns off animation)</span>
-  </label>
-</section>
+    <label class="mt-3 flex min-h-11 cursor-pointer items-center justify-between gap-4" for="calm-toggle">
+      <span>
+        Calm mode
+        <span class="block text-ink-soft">Turns off animation</span>
+      </span>
+      <input
+        id="calm-toggle"
+        class="m-0 box-border h-5 w-9 shrink-0 cursor-pointer appearance-none rounded-full border border-solid border-edge bg-bg p-[3px] before:block before:size-3 before:rounded-full before:bg-ink before:content-[''] checked:bg-ink checked:before:translate-x-4 checked:before:bg-bg forced-colors:appearance-auto forced-colors:before:hidden"
+        type="checkbox"
+        role="switch"
+        data-calm-toggle
+        data-testid="calm-toggle"
+      />
+    </label>
+  </section>
+</details>
 
 <script>
   import "../scripts/controls";

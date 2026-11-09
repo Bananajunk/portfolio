@@ -67,3 +67,34 @@ calm?.addEventListener("change", () => {
 
 syncTheme();
 syncCalm();
+
+const settings = document.querySelector<HTMLDetailsElement>(
+  "[data-display-settings]",
+);
+const settingsTrigger = settings?.querySelector("summary");
+
+// Native details handles Enter/Space; also support familiar flyout dismissal.
+settings?.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && settings.open) {
+    settings.open = false;
+    settingsTrigger?.focus();
+    event.preventDefault();
+  }
+});
+document.addEventListener("click", (event) => {
+  if (
+    settings?.open &&
+    event.target instanceof Node &&
+    !settings.contains(event.target)
+  ) {
+    settings.open = false;
+  }
+});
+settings?.addEventListener("focusout", (event) => {
+  if (
+    event.relatedTarget instanceof Node &&
+    !settings.contains(event.relatedTarget)
+  ) {
+    settings.open = false;
+  }
+});
