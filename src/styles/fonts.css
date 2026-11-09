@@ -1,0 +1,18 @@
+/* Self-hosted variable fonts, Latin subset, OFL licensed (see public/fonts). */
+@font-face {
+  font-family: "Bricolage Grotesque Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("/fonts/bricolage-grotesque-latin-wght-normal.woff2")
+    format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2")
+    format("woff2-variations");
+}

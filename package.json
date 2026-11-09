@@ -6,9 +6,10 @@
   "packageManager": "pnpm@12.11.2",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/check-resume-drift.ts && astro build",
+    "build": "pnpm check:contrast && node scripts/check-resume-drift.ts && astro build",
     "preview": "astro preview",
-    "check": "astro check && biome check .",
+    "check": "pnpm check:contrast && astro check && biome check .",
+    "check:contrast": "node scripts/check-contrast.mjs",
     "check:launch": "node scripts/check-launch-ready.ts",
     "test": "node --test \"scripts/*.test.ts\"",
     "format": "biome check --write .",
