@@ -39,6 +39,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+      - run: pnpm check:seo
       - run: pnpm budget
       - run: pnpm linkcheck
       - uses: actions/upload-artifact@v5
