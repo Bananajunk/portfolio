@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { lintClaimText } from "../src/content/claim-rules.ts";
 import {
   findDrift,
   findUnverified,
+  parseResumeEducation,
   parseResumeJobs,
   type RoleData,
 } from "./content-checks.ts";
@@ -85,4 +87,49 @@ test("public resume sources contain no phone number", async () => {
     const text = readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
     assert.equal(phone.test(text), false, `${file} contains a phone number`);
   }
+});
+
+const read = (file: string) =>
+  readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
+
+test("education data matches the Resume", () => {
+  const resume = parseResumeEducation(read("resume.html"));
+  const data = JSON.parse(read("src/content/education.json")) as {
+    school: string;
+    degree: string;
+    startYear: number;
+    endYear: number;
+  }[];
+  assert.equal(resume.length, 2);
+  assert.deepEqual(
+    data.map((e) => [e.school, e.degree, `${e.startYear} – ${e.endYear}`]),
+    resume.map((e) => [e.school, e.degree, e.when]),
+  );
+});
+
+test("role cards: Owner is the only large card and tints are distinct", () => {
+  const roles = JSON.parse(read("src/content/roles.json")) as {
+    id: string;
+    size: string;
+    tint: string;
+    scope: string;
+  }[];
+  assert.deepEqual(
+    roles.filter((r) => r.size === "large").map((r) => r.id),
+    ["owner"],
+  );
+  assert.equal(new Set(roles.map((r) => r.tint)).size, roles.length);
+  for (const role of roles) assert.ok(role.scope.length > 0, role.id);
+  assert.equal(roles.find((r) => r.id === "faire")?.size === "small", true);
+});
+
+test("Faire is Senior Software Engineer on the Site", () => {
+  const roles = JSON.parse(read("src/content/roles.json")) as {
+    id: string;
+    title: string;
+  }[];
+  assert.equal(
+    roles.find((r) => r.id === "faire")?.title,
+    "Senior Software Engineer",
+  );
 });

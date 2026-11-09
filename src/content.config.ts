@@ -45,6 +45,10 @@ const roles = defineCollection({
     /** Location exactly as the Resume prints it. */
     location: z.string().min(1),
     size: z.enum(["large", "small"]),
+    /** Pastel tint for the Card; its Stories carry the same tint. */
+    tint: z.enum(["peach", "mint", "sky", "lilac"]),
+    /** One-line scope shown on the collapsed Card. */
+    scope: claimText.min(1),
     context: claimText.optional(),
     claims: z.array(claim).min(1),
   }),

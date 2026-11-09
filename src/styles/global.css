@@ -51,6 +51,11 @@
   }
 }
 
+/* Role Card summaries: drop the browser marker; the chevron replaces it. */
+.role-summary::-webkit-details-marker {
+  display: none;
+}
+
 /* Unlayered so it beats the display utilities: controls need JS. */
 :root:not([data-js]) [data-controls] {
   display: none;
