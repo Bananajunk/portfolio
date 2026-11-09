@@ -5,50 +5,75 @@
     "title": "Accessibility",
     "problem": {
       "text": "Two external audits found WCAG 2.2 AA failures across the menu, cart and checkout.",
-      "source": { "kind": "resume" }
+      "source": {
+        "kind": "resume"
+      }
     },
     "whatIDid": {
       "text": "Led the remediation: closed 131 of 161 findings from one audit, triaged 109 from the other into root-cause tickets, and personally fixed 120+ of ~280 findings. Built an internal accessibility portal for the engineering org and productionized a Playwright + axe-core suite, with critical checks on every pull request and the full suite daily.",
-      "source": { "kind": "resume" }
+      "source": {
+        "kind": "resume"
+      }
     },
-    "tradeoffs": { "text": "", "unverified": true },
+    "tradeoffs": {
+      "text": ""
+    },
     "outcome": {
       "text": "The portal launched org-wide in Sep 2026, used by Engineering, Legal and CS, and every release is now audited automatically.",
-      "source": { "kind": "resume" }
+      "source": {
+        "kind": "resume"
+      }
     },
-    "unverified": []
+    "unverified": [],
+    "role": "owner"
   },
   {
     "id": "flow-2",
     "order": 2,
     "title": "Shopify Flow 2.0",
     "problem": {
-      "text": "Shopify Flow was moving to a new workflow engine and a new drag-and-drop editor.",
-      "source": {
-        "kind": "public",
-        "name": "Shopify Engineering, \"Maestro: The Orchestration Language Powering Shopify Flow\""
-      }
+      "text": "The original Shopify Flow was linear: one trigger, one condition, one action, with a limited editor. It was rebuilt so merchants could build flexible workflows on a more visual drag-and-drop canvas, with connecting arrows between cards, and a backend that scales and runs faster and more reliably.",
+      "source": [
+        {
+          "kind": "spec",
+          "name": "Liam, confirmed 2026-11-09"
+        }
+      ]
     },
     "whatIDid": {
-      "text": "Core engineer on both ends: assisted on the data service layer, so storage could be swapped behind the services without changing callers, and was on the team that built the drag-and-drop editor.",
-      "source": { "kind": "spec", "name": "Bananajunk/portfolio#1, Decisions" }
+      "text": "Core engineer on both ends: assisted on the data service layer, built on the repository pattern so storage could be swapped behind the services without changing callers, and was on the team that built the drag-and-drop editor.",
+      "source": [
+        {
+          "kind": "spec",
+          "name": "Liam, confirmed 2026-11-09"
+        }
+      ]
     },
     "tradeoffs": {
-      "text": "For editor state, Recoil won over Redux and plain React state, which lagged past about five cards.",
-      "source": { "kind": "spec", "name": "Bananajunk/portfolio#1, Decisions" }
+      "text": "For editor state I weighed Recoil against Redux and plain React state. Recoil's atom structure won, while plain React state lagged beyond about five cards.",
+      "source": [
+        {
+          "kind": "spec",
+          "name": "Liam, confirmed 2026-11-09"
+        }
+      ]
     },
     "outcome": {
-      "text": "Flow's workflows moved to the new engine and editor, as Shopify's public engineering post describes.",
-      "source": {
-        "kind": "public",
-        "name": "Shopify Engineering, \"Maestro: The Orchestration Language Powering Shopify Flow\""
-      }
+      "text": "Merchants got more flexible workflows on a visual canvas, backed by a faster, more reliable service. Per Shopify's public engineering post, all workflows ran on the new engine by BFCM 2020 and were migrated to the new editor and engine by early 2022.",
+      "source": [
+        {
+          "kind": "public",
+          "name": "Shopify Engineering, \"Maestro: The Orchestration Language Powering Shopify Flow\"",
+          "url": "https://shopify.engineering/maestro-the-orchestration-language-powering-shopify-flow"
+        },
+        {
+          "kind": "spec",
+          "name": "Liam, confirmed 2026-11-09"
+        }
+      ]
     },
-    "unverified": [
-      "The name for the data service layer pattern (the \"repository pattern\" wording)",
-      "The exact list of libraries tested for the editor",
-      "Team size"
-    ]
+    "unverified": [],
+    "role": "shopify"
   },
   {
     "id": "include-utensils",
@@ -56,18 +81,27 @@
     "title": "Include Utensils",
     "problem": {
       "text": "One feature had to land consistently on web, the branded app, kiosk, POS, kitchen tickets, restaurant settings and an in-product AI agent.",
-      "source": { "kind": "resume" }
+      "source": {
+        "kind": "resume"
+      }
     },
     "whatIDid": {
       "text": "Wrote the TDD, broke it into 37 tickets across 6 milestones, and coordinated the teams on each surface.",
-      "source": { "kind": "resume" }
+      "source": {
+        "kind": "resume"
+      }
     },
-    "tradeoffs": { "text": "", "unverified": true },
+    "tradeoffs": {
+      "text": ""
+    },
     "outcome": {
       "text": "Rolled out to 100% of restaurants in Nov 2026.",
-      "source": { "kind": "resume" }
+      "source": {
+        "kind": "resume"
+      }
     },
-    "unverified": []
+    "unverified": [],
+    "role": "owner"
   },
   {
     "id": "unified-client-cart-state",
@@ -75,17 +109,26 @@
     "title": "Unified Client Cart State",
     "problem": {
       "text": "A divergent localStorage store for checkout intent sat behind race conditions with the server cart.",
-      "source": { "kind": "resume" }
+      "source": {
+        "kind": "resume"
+      }
     },
     "whatIDid": {
       "text": "Designed and built it so the server cart is the single source of truth for checkout intent, shipped behind shadow-write and cutover flags.",
-      "source": { "kind": "resume" }
+      "source": {
+        "kind": "resume"
+      }
     },
-    "tradeoffs": { "text": "", "unverified": true },
+    "tradeoffs": {
+      "text": ""
+    },
     "outcome": {
-      "text": "Built to 100% of staging.",
-      "source": { "kind": "resume" }
+      "text": "Built to 100% of staging. A flag-gated cart-validation dialog from the same effort cut \"order already placed\" checkout errors about 85% on rollout, from 83 to 13 per day.",
+      "source": {
+        "kind": "resume"
+      }
     },
-    "unverified": []
+    "unverified": [],
+    "role": "owner"
   }
 ]
