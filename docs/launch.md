@@ -5,7 +5,7 @@ serving the old site until the flip.
 
 ## Pre-flight
 
-- [ ] Cloudflare Workers reset: the stale `bananajunk` Worker is deleted and
+- [x] Cloudflare Workers reset (done 2026-11-09).
       `portfolio` is recreated from Git (Workers & Pages, import repository).
 - [ ] Preview builds pass. Non-production deploy command is
       `npx wrangler versions upload`. A branch build must not run

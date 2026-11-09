@@ -118,12 +118,11 @@ headers and cache rules are in `public/_headers`.
   Workers & Pages (Workers Builds) with build command `pnpm build` and deploy
   command `npx wrangler deploy`. The Worker is named `portfolio`, and `name` in
   `wrangler.jsonc` must match the Worker connected in the dashboard.
-- **Custom domains are not attached yet.** Attaching `bananajunk.dev` makes
-  Cloudflare take over its DNS, so the commented `routes` in `wrangler.jsonc`
-  are enabled only at launch (ticket #13, see `docs/launch.md`). Vercel keeps serving the old site
-  until then.
+- **Custom domains** (`bananajunk.dev` and `www`) are declared in
+  `wrangler.jsonc`, so Cloudflare serves them and manages their DNS. Launch and
+  rollback steps are in `docs/launch.md`.
 - **`www` to apex** is a Cloudflare zone Redirect Rule (`www.bananajunk.dev/*`
-  to `https://bananajunk.dev/${1}`, 301), created at launch.
+  to `https://bananajunk.dev/${1}`, 301), created in the dashboard.
 - **CSP** forbids inline scripts and styles (`inlineStylesheets: "never"`).
   Adding either means changing `public/_headers` on purpose.
 
