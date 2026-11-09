@@ -55,6 +55,36 @@ theme, base, components, motion, utilities
 All motion must respect Calm mode and `prefers-reduced-motion`
 ([ADR 0004](docs/adr/0004-calm-mode-and-motion-policy.md)).
 
+## Theme, Time of day and Calm mode
+
+Palette tokens for the day, dusk and night themes live in
+`src/styles/themes.css` and feed Tailwind utilities (`bg-bg`, `text-ink`,
+`bg-tint-peach`, `text-accent`, `font-display`, `text-step-3` and so on).
+`scripts/check-contrast.mjs` parses that file and fails `pnpm build` and
+`pnpm check` when a pair drops below WCAG (text 4.5:1, UI and focus ring
+3:1). Run `pnpm check:contrast -- --table` to print every measured ratio.
+
+`public/theme-init.js` is a blocking same-origin script that applies the
+stored or system theme and Calm mode before first paint (the CSP forbids
+inline script). Choices persist in `localStorage` (`bj-theme`, `bj-calm`).
+Without JS the controls are hidden, and the page follows the system colour
+scheme and `prefers-reduced-motion` through CSS alone.
+
+Selectors for tests (including the axe matrix):
+
+| What                | Selector                                                   |
+| ------------------- | ---------------------------------------------------------- |
+| Current theme       | `html[data-theme="day" \| "dusk" \| "night"]`               |
+| Calm mode           | `html[data-calm="on" \| "off"]`                             |
+| Time of day slider  | `[data-testid="time-of-day-slider"]` (`input[type=range]`) |
+| Theme presets       | `[data-testid="theme-preset-day"]`, `-dusk`, `-night`      |
+| Calm mode toggle    | `[data-testid="calm-toggle"]` (`role="switch"` checkbox)   |
+| Controls container  | `[data-testid="experience-controls"]`                      |
+
+To set state without clicking, seed `localStorage` (`bj-theme`, `bj-calm`)
+before load. An element whose motion is essential opts out of Calm mode with
+`data-motion="essential"`.
+
 ## Deployment
 
 Cloudflare Workers static assets, configured in `wrangler.jsonc`
