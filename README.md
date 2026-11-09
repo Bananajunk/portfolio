@@ -51,7 +51,8 @@ headers and cache rules are in `public/_headers`.
 
 - **Git deploys:** in the Cloudflare dashboard, connect the repo under
   Workers & Pages (Workers Builds) with build command `pnpm build` and deploy
-  command `npx wrangler deploy`.
+  command `npx wrangler deploy`. The Worker is named `portfolio`, and `name` in
+  `wrangler.jsonc` must match the Worker connected in the dashboard.
 - **Custom domains are not attached yet.** Attaching `bananajunk.dev` makes
   Cloudflare take over its DNS, so the commented `routes` in `wrangler.jsonc`
   are enabled only at launch (ticket #13). Vercel keeps serving the old site
