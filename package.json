@@ -6,9 +6,10 @@
   "packageManager": "pnpm@12.11.2",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "pnpm check:contrast && astro build",
     "preview": "astro preview",
-    "check": "astro check && biome check .",
+    "check": "pnpm check:contrast && astro check && biome check .",
+    "check:contrast": "node scripts/check-contrast.mjs",
     "format": "biome check --write .",
     "deploy": "pnpm build && wrangler deploy"
   },

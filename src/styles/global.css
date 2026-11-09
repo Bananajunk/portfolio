@@ -12,13 +12,11 @@
 
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
+@import "./fonts.css";
+@import "./themes.css";
 @import "./motion.css";
 
 @layer base {
-  :root {
-    color-scheme: light;
-  }
-
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
@@ -27,14 +25,20 @@
   body {
     margin: 0;
     min-height: 100dvh;
-    background: #fff8e1;
-    color: #1b1b1b;
-    font-family: system-ui, sans-serif;
+    background: var(--c-bg);
+    color: var(--c-ink);
+    font-family: var(--font-text);
     line-height: 1.5;
   }
 
   :focus-visible {
-    outline: 3px solid #1b1b1b;
+    outline: 3px solid var(--c-focus);
     outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
   }
 }

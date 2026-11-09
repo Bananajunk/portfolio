@@ -1,0 +1,119 @@
+/*
+ * Palette tokens for the three Time of day themes. This file is the single
+ * source of truth: scripts/check-contrast.mjs parses it and fails the build
+ * when a pair drops below its WCAG ratio. Keep one declaration per line.
+ *
+ *   --c-bg / --c-surface   page and raised backgrounds
+ *   --c-tint-*             pastel Card backgrounds (text on them uses --c-ink)
+ *   --c-ink / --c-ink-soft primary and secondary text
+ *   --c-accent             links and interactive text
+ *   --c-focus              focus ring (2.4.13: 3px, 3:1 against every surface)
+ *   --c-border             UI component edges (3:1)
+ *   --c-banana / --c-on-banana  anchor fill and the text on it
+ */
+@layer theme {
+  :root,
+  [data-theme="day"] {
+    --c-bg: #fff8e1;
+    --c-surface: #fffdf5;
+    --c-ink: #1b1a17;
+    --c-ink-soft: #5a5446;
+    --c-accent: #5b2be0;
+    --c-focus: #5b2be0;
+    --c-border: #6e6858;
+    --c-banana: #ffd23f;
+    --c-on-banana: #1b1a17;
+    --c-tint-peach: #ffd9c7;
+    --c-tint-mint: #cdefd8;
+    --c-tint-sky: #cfe3ff;
+    --c-tint-lilac: #e3d4ff;
+  }
+
+  [data-theme="dusk"] {
+    --c-bg: #2a2140;
+    --c-surface: #362b52;
+    --c-ink: #fff3dc;
+    --c-ink-soft: #cfc4e0;
+    --c-accent: #ff9ec4;
+    --c-focus: #ffc83d;
+    --c-border: #aa9dcc;
+    --c-banana: #ffc83d;
+    --c-on-banana: #1f1830;
+    --c-tint-peach: #5a3a4f;
+    --c-tint-mint: #2f4f55;
+    --c-tint-sky: #3a4a78;
+    --c-tint-lilac: #4b3a78;
+  }
+
+  [data-theme="night"] {
+    --c-bg: #0f1117;
+    --c-surface: #181b24;
+    --c-ink: #f2efe6;
+    --c-ink-soft: #b5b2a6;
+    --c-accent: #8ab4ff;
+    --c-focus: #ffd23f;
+    --c-border: #7c8090;
+    --c-banana: #ffd23f;
+    --c-on-banana: #14120a;
+    --c-tint-peach: #3a2a2e;
+    --c-tint-mint: #1f3329;
+    --c-tint-sky: #1f2d47;
+    --c-tint-lilac: #2e2540;
+  }
+
+  /* No-JS fallback: follow the system, same values as the night theme. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+      --c-bg: #0f1117;
+      --c-surface: #181b24;
+      --c-ink: #f2efe6;
+      --c-ink-soft: #b5b2a6;
+      --c-accent: #8ab4ff;
+      --c-focus: #ffd23f;
+      --c-border: #7c8090;
+      --c-banana: #ffd23f;
+      --c-on-banana: #14120a;
+      --c-tint-peach: #3a2a2e;
+      --c-tint-mint: #1f3329;
+      --c-tint-sky: #1f2d47;
+      --c-tint-lilac: #2e2540;
+    }
+  }
+
+  [data-theme="day"] {
+    color-scheme: light;
+  }
+
+  [data-theme="dusk"],
+  [data-theme="night"] {
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-ink: var(--c-ink);
+  --color-ink-soft: var(--c-ink-soft);
+  --color-accent: var(--c-accent);
+  --color-focus: var(--c-focus);
+  --color-edge: var(--c-border);
+  --color-banana: var(--c-banana);
+  --color-on-banana: var(--c-on-banana);
+  --color-tint-peach: var(--c-tint-peach);
+  --color-tint-mint: var(--c-tint-mint);
+  --color-tint-sky: var(--c-tint-sky);
+  --color-tint-lilac: var(--c-tint-lilac);
+
+  --font-display:
+    "Bricolage Grotesque Variable", ui-rounded, system-ui, sans-serif;
+  --font-text: "Atkinson Hyperlegible Next Variable", system-ui, sans-serif;
+
+  --text-step--1: clamp(0.8rem, 0.77rem + 0.15vw, 0.9rem);
+  --text-step-0: clamp(1rem, 0.95rem + 0.25vw, 1.15rem);
+  --text-step-1: clamp(1.25rem, 1.15rem + 0.5vw, 1.55rem);
+  --text-step-2: clamp(1.6rem, 1.4rem + 1vw, 2.2rem);
+  --text-step-3: clamp(2.1rem, 1.7rem + 2vw, 3.3rem);
+  --text-step-4: clamp(2.8rem, 2rem + 4vw, 5.2rem);
+  --text-step-5: clamp(3.6rem, 2.2rem + 7vw, 8rem);
+}

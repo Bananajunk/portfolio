@@ -1,0 +1,99 @@
+---
+// Time of day slider, presets and Calm mode toggle. Hidden until JS runs
+// (html[data-js]); the stored choice is applied earlier by /theme-init.js.
+---
+
+<section
+  class="flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-edge bg-surface px-4 py-3 text-step--1"
+  aria-label="Display settings"
+  data-controls
+  data-testid="experience-controls"
+>
+  <div class="flex flex-wrap items-center gap-3">
+    <label for="tod-slider" class="font-bold">Time of day</label>
+    <input
+      id="tod-slider"
+      class="tod-slider"
+      type="range"
+      min="0"
+      max="2"
+      step="1"
+      value="0"
+      aria-valuetext="Day"
+      data-tod-slider
+      data-testid="time-of-day-slider"
+    />
+    <output for="tod-slider" class="min-w-[4ch] font-bold" data-tod-value
+      >Day</output
+    >
+    <div class="flex gap-2" role="group" aria-label="Time of day presets">
+      {
+        ["day", "dusk", "night"].map((theme) => (
+          <button
+            type="button"
+            class="preset"
+            aria-pressed="false"
+            data-theme-preset={theme}
+            data-testid={`theme-preset-${theme}`}
+          >
+            {theme.charAt(0).toUpperCase() + theme.slice(1)}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+  <label class="flex items-center gap-2 font-bold" for="calm-toggle">
+    <input
+      id="calm-toggle"
+      class="calm-toggle"
+      type="checkbox"
+      role="switch"
+      data-calm-toggle
+      data-testid="calm-toggle"
+    />
+    Calm mode
+    <span class="font-normal text-ink-soft">(turns off animation)</span>
+  </label>
+</section>
+
+<style is:global>
+  @layer components {
+    :root:not([data-js]) [data-controls] {
+      display: none;
+    }
+
+    .tod-slider {
+      inline-size: 10rem;
+      min-block-size: 1.5rem;
+      accent-color: var(--c-accent);
+    }
+
+    .preset {
+      min-block-size: 2rem;
+      min-inline-size: 2rem;
+      padding: 0 0.75rem;
+      border: 2px solid var(--c-border);
+      border-radius: 999px;
+      background: var(--c-bg);
+      color: var(--c-ink);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .preset[aria-pressed="true"] {
+      background: var(--c-banana);
+      color: var(--c-on-banana);
+    }
+
+    .calm-toggle {
+      inline-size: 1.5rem;
+      block-size: 1.5rem;
+      accent-color: var(--c-accent);
+    }
+  }
+</style>
+
+<script>
+  import "../scripts/controls";
+</script>
