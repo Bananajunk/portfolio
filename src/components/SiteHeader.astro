@@ -1,5 +1,5 @@
 ---
-// Sticky pill nav. Only sections that exist get a link; add the next one here
+// Quiet sticky nav. Only sections that exist get a link; add the next one here
 // as each section lands: #7 Work (#work), #8 Stories (#stories),
 // #10 Before that (#before-that), #11 Play (#play).
 const links = [
@@ -13,13 +13,13 @@ const links = [
 ];
 ---
 
-<header class="site-header" data-print="hide" data-testid="site-header">
-  <nav aria-label="Sections" class="pill-nav" data-testid="site-nav">
+<header class="site-header mx-auto flex max-w-4xl justify-start px-6 pt-5" data-print="hide" data-testid="site-header">
+  <nav aria-label="Sections" class="rounded-lg bg-bg px-1" data-testid="site-nav">
     <ul class="m-0 flex list-none flex-wrap items-center gap-1 p-0">
       {
         links.map((link) => (
           <li>
-            <a class="pill-link" href={`#${link.id}`} data-nav-link={link.id}>
+            <a class="inline-flex min-h-11 items-center rounded-sm px-3 text-step--1 text-ink-soft no-underline hover:text-ink aria-[current=true]:text-ink aria-[current=true]:underline aria-[current=true]:decoration-1 aria-[current=true]:underline-offset-8" href={`#${link.id}`} data-nav-link={link.id}>
               {link.label}
             </a>
           </li>
@@ -31,11 +31,6 @@ const links = [
 
 <style is:global>
   @layer components {
-    .site-header {
-      padding: 0.75rem 1rem 0;
-      display: flex;
-      justify-content: center;
-    }
     /* Sticky only when the viewport is roomy: a sticky bar must not cover the
        focused element at high zoom (WCAG 2.4.11, 1.4.10). */
     @media (min-width: 40rem) and (min-height: 40rem) {
@@ -47,31 +42,6 @@ const links = [
     }
     html {
       scroll-padding-top: 5rem;
-    }
-    .pill-nav {
-      border: 2px solid var(--c-border);
-      border-radius: 999px;
-      background: var(--c-surface);
-      padding: 0.25rem;
-    }
-    .pill-link {
-      display: inline-flex;
-      align-items: center;
-      min-block-size: 2.75rem;
-      padding: 0 1rem;
-      border-radius: 999px;
-      color: var(--c-ink);
-      font-weight: 700;
-      text-decoration: none;
-    }
-    .pill-link:hover {
-      background: var(--c-tint-lilac);
-    }
-    .pill-link[aria-current="true"] {
-      background: var(--c-banana);
-      color: var(--c-on-banana);
-      text-decoration: underline;
-      text-underline-offset: 4px;
     }
   }
 </style>

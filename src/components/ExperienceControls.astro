@@ -4,16 +4,16 @@
 ---
 
 <section
-  class="flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-edge bg-surface px-4 py-3 text-step--1"
+  class="mx-auto flex max-w-4xl flex-wrap items-center gap-x-8 gap-y-2 px-6 pt-3 text-step--1 text-ink-soft"
   aria-label="Display settings"
   data-controls
   data-testid="experience-controls"
 >
-  <div class="flex flex-wrap items-center gap-3">
-    <label for="tod-slider" class="font-bold">Time of day</label>
+  <div class="flex flex-wrap items-center gap-x-3 gap-y-0">
+    <label for="tod-slider" class="font-normal">Time of day</label>
     <input
       id="tod-slider"
-      class="tod-slider"
+      class="h-11 w-20 accent-accent"
       type="range"
       min="0"
       max="2"
@@ -23,15 +23,15 @@
       data-tod-slider
       data-testid="time-of-day-slider"
     />
-    <output for="tod-slider" class="min-w-[4ch] font-bold" data-tod-value
+    <output for="tod-slider" class="sr-only" data-tod-value
       >Day</output
     >
-    <div class="flex gap-2" role="group" aria-label="Time of day presets">
+    <div class="flex gap-0" role="group" aria-label="Time of day presets">
       {
         ["day", "dusk", "night"].map((theme) => (
           <button
             type="button"
-            class="preset"
+            class="min-h-11 min-w-11 cursor-pointer border-0 bg-transparent px-2 font-text text-step--1 text-ink-soft aria-pressed:text-ink aria-pressed:underline aria-pressed:underline-offset-4"
             aria-pressed="false"
             data-theme-preset={theme}
             data-testid={`theme-preset-${theme}`}
@@ -42,53 +42,19 @@
       }
     </div>
   </div>
-  <label class="flex items-center gap-2 font-bold" for="calm-toggle">
+  <label class="flex min-h-11 cursor-pointer items-center gap-2" for="calm-toggle">
     <input
       id="calm-toggle"
-      class="calm-toggle"
+      class="m-0 h-4 w-4 accent-accent"
       type="checkbox"
       role="switch"
       data-calm-toggle
       data-testid="calm-toggle"
     />
     Calm mode
-    <span class="font-normal text-ink-soft">(turns off animation)</span>
+    <span class="sr-only">(turns off animation)</span>
   </label>
 </section>
-
-<style is:global>
-  @layer components {
-    .tod-slider {
-      inline-size: 10rem;
-      min-block-size: 1.5rem;
-      accent-color: var(--c-accent);
-    }
-
-    .preset {
-      min-block-size: 2rem;
-      min-inline-size: 2rem;
-      padding: 0 0.75rem;
-      border: 2px solid var(--c-border);
-      border-radius: 999px;
-      background: var(--c-bg);
-      color: var(--c-ink);
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .preset[aria-pressed="true"] {
-      background: var(--c-banana);
-      color: var(--c-on-banana);
-    }
-
-    .calm-toggle {
-      inline-size: 1.5rem;
-      block-size: 1.5rem;
-      accent-color: var(--c-accent);
-    }
-  }
-</style>
 
 <script>
   import "../scripts/controls";

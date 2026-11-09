@@ -2,7 +2,6 @@
 import { getEntry } from "astro:content";
 import { contactLinks } from "../lib/contact.ts";
 import { RESUME_PDF_URL } from "../lib/resume-pdf.ts";
-import Mascot from "./Mascot.astro";
 
 const hero = (await getEntry("hero", "hero"))?.data;
 if (!hero) throw new Error("Missing hero entry in src/content/hero.json");
@@ -11,65 +10,33 @@ if (!hero) throw new Error("Missing hero entry in src/content/hero.json");
 <section
   id="top"
   aria-labelledby="hero-heading"
-  class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-12 md:grid-cols-[1.5fr_1fr] md:py-20"
+  class="mx-auto max-w-4xl px-6 py-16 md:py-24"
   data-nav-section
   data-testid="hero"
 >
   <div>
     <h1
       id="hero-heading"
-      class="font-display text-step-5 font-extrabold leading-none tracking-tighter"
+      class="font-display text-step-4 font-medium leading-none tracking-tight"
     >
       {hero.name}
     </h1>
-    <p class="mt-2 font-display text-step-2 font-bold leading-tight">{hero.title}</p>
-    <p class="mt-4 max-w-prose text-step-0">{hero.summary}</p>
-    <p class="mt-4 max-w-prose rounded-2xl bg-tint-mint px-4 py-3 text-step-0 font-bold">
+    <p class="mt-5 font-display text-step-1 font-medium leading-tight">{hero.title}</p>
+    <p class="mt-7 max-w-prose text-step-0 text-ink-soft">{hero.summary}</p>
+    <p class="mt-7 max-w-prose border-l-2 border-banana pl-5 text-step-0">
       {hero.impact}
     </p>
-    <ul class="m-0 mt-6 flex list-none flex-wrap gap-3 p-0" aria-label="Contact and Resume">
+    <ul class="m-0 mt-8 flex list-none flex-wrap gap-x-6 gap-y-2 p-0" aria-label="Contact and Resume">
       {
         contactLinks.map((link) => (
           <li>
-            <a class="hero-link" href={link.href}>{link.label}</a>
+            <a class="inline-flex min-h-11 items-center text-accent underline decoration-1 underline-offset-4" href={link.href}>{link.label}</a>
           </li>
         ))
       }
       <li>
-        <a class="hero-link hero-link-primary" href={RESUME_PDF_URL} download>Resume (PDF)</a>
+        <a class="inline-flex min-h-11 items-center text-accent underline decoration-1 underline-offset-4" href={RESUME_PDF_URL} download>Resume (PDF)</a>
       </li>
     </ul>
   </div>
-  <div class="mx-auto w-full max-w-xs" data-print="hide">
-    <Mascot />
-  </div>
 </section>
-
-<style is:global>
-  @layer components {
-    .hero-link {
-      display: inline-flex;
-      align-items: center;
-      min-block-size: 2.75rem;
-      padding: 0 1.25rem;
-      border: 2px solid var(--c-border);
-      border-radius: 999px;
-      background: var(--c-surface);
-      color: var(--c-ink);
-      font-weight: 700;
-      text-decoration: none;
-    }
-    .hero-link:hover {
-      background: var(--c-tint-lilac);
-    }
-    .hero-link-primary {
-      border-color: var(--c-ink);
-      background: var(--c-banana);
-      color: var(--c-on-banana);
-    }
-    .hero-link-primary:hover {
-      background: var(--c-banana);
-      text-decoration: underline;
-    }
-  }
-</style>
