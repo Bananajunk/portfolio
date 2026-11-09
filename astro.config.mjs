@@ -11,6 +11,10 @@ export default defineConfig({
     inlineStylesheets: "never",
   },
   vite: {
+    build: {
+      // Keep page scripts as files so the CSP can stay free of inline script.
+      assetsInlineLimit: 0,
+    },
     plugins: [tailwindcss()],
   },
 });

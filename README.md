@@ -26,7 +26,19 @@ pnpm dev       # http://localhost:4321
 | `pnpm test`    | Unit tests for the content checks (`node --test`)    |
 | `pnpm check:launch` | Fails while any content is still `unverified`   |
 | `pnpm format`  | Apply Biome fixes                                    |
+| `pnpm budget`  | Fail if first-load JS is over ~30 KB gzipped (needs `dist/`) |
+| `pnpm linkcheck` | Check internal and external links in `dist/` (`SKIP_EXTERNAL=1` skips the network) |
+| `pnpm axe`     | Playwright + axe-core against the preview (needs `dist/` and `pnpm exec playwright install chromium`) |
+| `pnpm lighthouse` | Lighthouse CI against `dist/`, 100/100/100 and LCP under 1s (needs Chrome, or `CHROME_PATH`) |
 | `pnpm deploy`  | Build, then `wrangler deploy` (needs Cloudflare auth) |
+
+## CI gates
+
+`.github/workflows/ci.yml` runs on every PR and on `main`: type check and lint,
+build, JS budget, link check, axe and Lighthouse. Each job is a separate PR
+check. The axe matrix lives in `tests/states.ts`; flip `CONTROLS_READY` once the
+Time of day and Calm mode controls exist so it covers day/dusk/night with Calm
+on and off.
 
 ## Styling
 
@@ -65,6 +77,36 @@ public source).
   Normal `pnpm check` and `pnpm build` stay green.
 - `resume.html` and `resume.pdf` at the repo root are the committed Resume.
   They hold the phone number, so they are not in `public/`.
+
+## Theme, Time of day and Calm mode
+
+Palette tokens for the day, dusk and night themes live in
+`src/styles/themes.css` and feed Tailwind utilities (`bg-bg`, `text-ink`,
+`bg-tint-peach`, `text-accent`, `font-display`, `text-step-3` and so on).
+`scripts/check-contrast.mjs` parses that file and fails `pnpm build` and
+`pnpm check` when a pair drops below WCAG (text 4.5:1, UI and focus ring
+3:1). Run `pnpm check:contrast -- --table` to print every measured ratio.
+
+`public/theme-init.js` is a blocking same-origin script that applies the
+stored or system theme and Calm mode before first paint (the CSP forbids
+inline script). Choices persist in `localStorage` (`bj-theme`, `bj-calm`).
+Without JS the controls are hidden, and the page follows the system colour
+scheme and `prefers-reduced-motion` through CSS alone.
+
+Selectors for tests (including the axe matrix):
+
+| What                | Selector                                                   |
+| ------------------- | ---------------------------------------------------------- |
+| Current theme       | `html[data-theme="day" \| "dusk" \| "night"]`               |
+| Calm mode           | `html[data-calm="on" \| "off"]`                             |
+| Time of day slider  | `[data-testid="time-of-day-slider"]` (`input[type=range]`) |
+| Theme presets       | `[data-testid="theme-preset-day"]`, `-dusk`, `-night`      |
+| Calm mode toggle    | `[data-testid="calm-toggle"]` (`role="switch"` checkbox)   |
+| Controls container  | `[data-testid="experience-controls"]`                      |
+
+To set state without clicking, seed `localStorage` (`bj-theme`, `bj-calm`)
+before load. An element whose motion is essential opts out of Calm mode with
+`data-motion="essential"`.
 
 ## Deployment
 

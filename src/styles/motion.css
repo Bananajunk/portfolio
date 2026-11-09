@@ -3,16 +3,28 @@
  * animation and transitions. Layout, spacing and colour use Tailwind
  * utilities and theme tokens. Every animation must respect Calm mode and
  * prefers-reduced-motion (ADR 0004).
+ *
+ * Calm mode is html[data-calm="on"]. With no stored choice, the system
+ * reduced-motion setting turns it on; data-calm="off" is an explicit
+ * visitor override. An element that is essential to understanding (rare)
+ * opts out with data-motion="essential".
  */
 @layer motion {
-  /* Baseline: honour the OS setting until Calm mode lands (ticket #4). */
   @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
+    :root:not([data-calm="off"]) *:not([data-motion="essential"]),
+    :root:not([data-calm="off"]) *:not([data-motion="essential"])::before,
+    :root:not([data-calm="off"]) *:not([data-motion="essential"])::after {
       animation: none !important;
       transition: none !important;
       scroll-behavior: auto !important;
     }
+  }
+
+  :root[data-calm="on"] *:not([data-motion="essential"]),
+  :root[data-calm="on"] *:not([data-motion="essential"])::before,
+  :root[data-calm="on"] *:not([data-motion="essential"])::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
