@@ -64,3 +64,24 @@
     transform: rotate(180deg);
   }
 }
+
+@layer motion {
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-calm="off"] .hero-arc {
+      animation: arc-arrive 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+    html[data-calm="off"] .hero-arc + .hero-arc {
+      animation-delay: 100ms;
+    }
+  }
+  @keyframes arc-arrive {
+    from {
+      opacity: 0.3;
+      transform: translate(16px, 12px) rotate(-12deg);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

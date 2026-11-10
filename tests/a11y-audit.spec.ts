@@ -353,7 +353,8 @@ for (const time of themes) {
             return (
               ["hidden", "clip"].includes(cs.overflowY) &&
               el.scrollHeight > el.clientHeight + 1 &&
-              !el.matches("[data-board]")
+              !el.matches("[data-board]") &&
+              !el.closest("[data-decoration]")
             );
           })
           .map((el) => `${el.tagName}.${el.className}`.slice(0, 60)),

@@ -18,6 +18,19 @@
 @import "./print.css";
 
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  h1,
+  h2,
+  h3,
+  p,
+  li,
+  a {
+    overflow-wrap: anywhere;
+  }
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
