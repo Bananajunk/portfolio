@@ -29,8 +29,9 @@ const layout = {
       const visible = role.id === "owner" ? 2 : 1;
       const more = role.claims.slice(visible);
       return (
-        <li class={`role-card grid min-w-0 rounded-[30px] bg-surface outline outline-edge/50 forced-colors:outline-[CanvasText] ${layout[role.id as keyof typeof layout] ?? ""}`} data-testid={`role-card-${role.id}`} data-size={role.size}>
-          <div class={`role-identity relative min-w-0 rounded-t-[30px] p-6 min-[761px]:px-[30px] min-[761px]:py-[26px] ${tintClass[role.tint]} ${role.id === "owner" || role.id === "textnow" ? "min-[761px]:rounded-tr-none min-[761px]:rounded-bl-[30px]" : ""}`}>
+        <li class={`role-card grid min-w-0 rounded-[30px] bg-surface outline outline-edge/50 forced-colors:outline-[CanvasText] ${layout[role.id as keyof typeof layout] ?? ""}`} data-testid={`role-card-${role.id}`} data-size={role.size} data-reveal="card">
+          <div class={`role-identity relative isolate min-w-0 rounded-t-[30px] p-6 min-[761px]:px-[30px] min-[761px]:py-[26px] ${tintClass[role.tint]} ${role.id === "owner" || role.id === "textnow" ? "min-[761px]:rounded-tr-none min-[761px]:rounded-bl-[30px]" : ""}`}>
+            <span class="pointer-events-none absolute inset-0 -z-10 overflow-clip rounded-[inherit] forced-colors:hidden" aria-hidden="true" data-decoration><span class={`role-current absolute -right-10 -top-14 size-40 rounded-full border-[24px] border-solid ${role.tint === "mint" ? "border-tint-sky" : role.tint === "sky" ? "border-tint-lilac" : "border-tint-mint"}`}></span></span>
             <div class="mb-2 flex min-h-14 items-center justify-between gap-4">
               <p class="text-[11px] font-semibold uppercase tracking-[.08em]">{role.id === "owner" ? "Current role" : `${String(i+1).padStart(2,"0")} / Experience`}</p>
               {role.id !== "faire" && <CompanyLogo company={role.id} />}

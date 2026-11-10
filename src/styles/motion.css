@@ -1,13 +1,72 @@
-/* Transform and opacity only. Content is readable before JS and without
-   scroll-timeline support. Calm and the system preference each stop motion. */
+/* Transform and opacity only. Text is always opaque. Without JS, arrivals
+   stay in their final positions; CSS scroll timelines enhance decoration. */
 @layer motion {
-  @media (prefers-reduced-motion: no-preference) {
+  @media screen and (prefers-reduced-motion: no-preference) and (
+      forced-colors: none
+    ) {
     html[data-calm="off"] {
+      [data-reveal] {
+        --arrival-from: translateY(36px);
+        --arrival-duration: 800ms;
+        --arrival-delay: 0ms;
+      }
+      [data-reveal="card"] {
+        --arrival-from: translateY(72px);
+        --arrival-duration: 960ms;
+        transform-origin: center top;
+      }
+      [data-reveal="image"] {
+        --arrival-from: translateY(56px) scale(0.9) rotate(-2deg);
+        --arrival-duration: 1100ms;
+      }
+      [data-reveal="phone"] {
+        --arrival-from: translateY(72px) scale(0.93) rotate(-7deg);
+        --arrival-duration: 1100ms;
+      }
+      [data-reveal="feature"] {
+        --arrival-from: translate(-18px, 36px) scale(0.72);
+        --arrival-duration: 850ms;
+        --arrival-delay: 180ms;
+      }
+      [data-reveal="step"] {
+        --arrival-from: translateY(28px);
+        --arrival-duration: 720ms;
+      }
+      [data-reveal="step"]:nth-child(2n) {
+        --arrival-delay: 100ms;
+      }
+      [data-reveal-state="waiting"] {
+        transform: var(--arrival-from);
+      }
+      [data-reveal-state="entered"] {
+        animation: content-arrive var(--arrival-duration)
+          cubic-bezier(0.16, 1, 0.3, 1) var(--arrival-delay) both;
+      }
+      :is(
+          [data-reveal="image"],
+          [data-reveal="phone"],
+          [data-reveal="feature"]
+        )[data-reveal-state="waiting"] {
+        opacity: 0.35;
+      }
+      :is(
+          [data-reveal="image"],
+          [data-reveal="phone"],
+          [data-reveal="feature"]
+        )[data-reveal-state="entered"] {
+        animation-name: image-arrive;
+      }
+      .role-card[data-reveal-state="entered"] .company-logo {
+        animation: logo-arrive 720ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both;
+      }
+      .role-card[data-reveal-state="entered"] .role-current {
+        animation: arc-arrive 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
       .hero-arc {
-        animation: arc-arrive 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        animation: arc-arrive 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
       }
       .hero-arc + .hero-arc {
-        animation-delay: 100ms;
+        animation-delay: 120ms;
       }
       .contact-trigger {
         animation: contact-arrive 280ms ease-out both;
@@ -22,93 +81,88 @@
       .contact-panel a:is(:hover, :focus-visible) .contact-arrow {
         transform: translate(2px, -2px);
       }
-      /* Open-state rotation is a utility so Calm keeps the static cue. */
+      /* The open-state cue remains present in Calm mode. */
       .role-plus {
         transition: transform 180ms ease-out;
       }
       .role-detail {
         animation: detail-arrive 180ms ease-out both;
       }
-      @supports (animation-timeline: view()) {
-        .role-card {
-          animation-name: card-arrive;
-          animation-timing-function: linear;
-          animation-fill-mode: both;
-          animation-timeline: view();
-          animation-range: entry 0% entry 55%;
+      @media (min-width: 761px) {
+        .role-card:nth-child(2) {
+          --arrival-from: translateY(80px) rotate(-1.2deg);
         }
         .role-card:nth-child(3) {
-          animation-name: card-arrive-right;
-        }
-        .current-orbit {
-          animation-name: current-drift;
-          animation-timing-function: linear;
-          animation-fill-mode: both;
-          animation-timeline: view();
-          animation-range: entry 0% exit 100%;
-        }
-        .story-image,
-        .phone-enter,
-        .feature-enter {
-          animation-name: screenshot-arrive;
-          animation-timing-function: linear;
-          animation-fill-mode: both;
-          animation-timeline: view();
-          animation-range: entry 0% entry 80%;
-        }
-        .phone-enter {
-          animation-name: phone-arrive;
-        }
-        .feature-enter {
-          animation-name: feature-arrive;
-          animation-range: entry 0% entry 100%;
-        }
-        .company-logo {
-          animation-name: logo-arrive;
-          animation-timing-function: linear;
-          animation-fill-mode: both;
-          animation-timeline: view();
-          animation-range: entry 0% entry 100%;
+          --arrival-from: translateY(80px) rotate(1.2deg);
+          --arrival-delay: 140ms;
         }
       }
-      /* Keyboard focus is never carried around by an entrance animation. */
-      .role-card:focus-within,
+      @supports (animation-timeline: view()) {
+        [data-current-track],
+        .role-identity {
+          view-timeline-name: --current;
+        }
+        .current-orbit,
+        .hero-arc,
+        .role-card .role-current {
+          animation: current-drift linear both;
+          animation-timeline: --current;
+          animation-range: cover 0% cover 100%;
+        }
+        .hero-arc {
+          animation-name: hero-current;
+        }
+        .hero-arc + .hero-arc {
+          animation-direction: reverse;
+        }
+        .role-card .role-current {
+          animation-name: role-current;
+        }
+      }
+      /* Focus and open disclosures stay still, including their logos. */
+      [data-reveal]:focus-within,
+      .story:focus-within [data-reveal],
+      .role-card:has(details[open]),
+      .role-card:focus-within .company-logo,
       .contact-trigger:focus-visible,
       .contact-panel:focus-within {
         animation: none;
         transform: none;
+        opacity: 1;
       }
     }
   }
-  @keyframes arc-arrive {
+  @keyframes content-arrive {
     from {
-      opacity: 0.3;
-      transform: translate(16px, 12px) rotate(-12deg);
+      transform: var(--arrival-from);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes image-arrive {
+    from {
+      opacity: 0.35;
+      transform: var(--arrival-from);
     }
     to {
       opacity: 1;
       transform: none;
     }
   }
-  @keyframes card-arrive {
+  @keyframes arc-arrive {
     from {
-      transform: translateY(56px) rotate(-0.6deg);
+      opacity: 0.3;
+      transform: translate(28px, 24px) scale(0.8);
     }
     to {
-      transform: none;
-    }
-  }
-  @keyframes card-arrive-right {
-    from {
-      transform: translateY(72px) rotate(0.6deg);
-    }
-    to {
+      opacity: 1;
       transform: none;
     }
   }
   @keyframes logo-arrive {
     from {
-      transform: translateY(8px) rotate(-8deg);
+      transform: translateY(18px) rotate(-12deg) scale(0.85);
     }
     to {
       transform: none;
@@ -116,58 +170,36 @@
   }
   @keyframes current-drift {
     from {
-      transform: translateY(22px) rotate(-25deg);
+      transform: translate(-16px, 42px) rotate(-80deg);
     }
     to {
-      transform: translateY(-22px) rotate(35deg);
+      transform: translate(16px, -42px) rotate(100deg);
+    }
+  }
+  @keyframes hero-current {
+    from {
+      transform: translate(28px, 40px) scale(0.94);
+    }
+    to {
+      transform: translate(-28px, -64px) scale(1.08);
+    }
+  }
+  @keyframes role-current {
+    from {
+      transform: translate(12px, -18px);
+    }
+    to {
+      transform: translate(-12px, 18px);
     }
   }
   @keyframes detail-arrive {
     from {
-      opacity: 0.7;
       transform: translateY(-6px);
     }
     to {
-      opacity: 1;
       transform: none;
     }
   }
-}
-
-@layer motion {
-  @keyframes screenshot-arrive {
-    from {
-      opacity: 0.6;
-      transform: translateY(26px) scale(0.97);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-  @keyframes phone-arrive {
-    from {
-      opacity: 0.6;
-      transform: translateY(30px) rotate(-4deg);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-  @keyframes feature-arrive {
-    from {
-      opacity: 0.6;
-      transform: translate(14px, 14px) scale(0.96);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-}
-
-@layer motion {
   @keyframes contact-arrive {
     from {
       transform: translateY(14px) rotate(-10deg);

@@ -28,9 +28,9 @@ const entries = [
 ---
 <section id="before-that" aria-labelledby="before-that-heading" class="min-w-0" data-testid="before-that">
   <p class="mb-2 text-[11px] font-semibold uppercase tracking-[.08em]">03 / The foundations</p>
-  <h2 id="before-that-heading" class="font-display text-[40px] font-semibold leading-tight tracking-[-.05em] min-[761px]:text-[44px]">Before that<span aria-hidden="true" class="text-accent">.</span></h2>
+  <h2 data-reveal="heading" id="before-that-heading" class="font-display text-[40px] font-semibold leading-tight tracking-[-.05em] min-[761px]:text-[44px]">Before that<span aria-hidden="true" class="text-accent">.</span></h2>
   <ol class="relative m-0 mt-8 list-none p-0 before:absolute before:bottom-11 before:left-7 before:top-7 before:w-px before:bg-edge/50 before:content-['']">
-    {entries.map(entry=><li class="relative grid grid-cols-[56px_minmax(0,1fr)] items-start gap-4 pb-7 last:pb-0 min-[761px]:gap-5">
+    {entries.map(entry=><li data-reveal="step" class="relative grid grid-cols-[56px_minmax(0,1fr)] items-start gap-4 pb-7 last:pb-0 min-[761px]:gap-5">
       <CompanyLogo company={entry.logo} />
       <div class="min-w-0"><p class="text-[13px] leading-relaxed text-ink-soft min-[761px]:text-[14px]">{entry.dates}</p><h3 class="my-1 font-display text-[21px] font-semibold leading-tight tracking-[-.035em] min-[761px]:text-[23px]">{entry.name}</h3><p class="mt-2 text-[16px] leading-relaxed min-[761px]:text-[17px]">{entry.title}</p>{entry.detail&&<p class="mt-1 text-[13px] leading-relaxed text-ink-soft min-[761px]:text-[14px]">{entry.detail}</p>}</div>
     </li>)}
