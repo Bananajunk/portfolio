@@ -1,53 +1,35 @@
 ---
 import ExperienceControls from "./ExperienceControls.astro";
 
-// Quiet sticky nav. Only sections that exist get a link; add the next one here
-// as each section lands: #11 Play (#play).
 const links = [
-  { id: "top", label: "Home" },
   { id: "work", label: "Work" },
   { id: "stories", label: "Stories" },
   { id: "before-that", label: "Before that" },
   { id: "about", label: "About" },
-  { id: "play", label: "Play" },
-  { id: "contact", label: "Contact" },
 ];
 ---
 
-<header class="site-header mx-auto flex max-w-4xl items-start justify-between gap-2 px-6 pt-5" data-print="hide" data-testid="site-header">
-  <nav aria-label="Sections" class="rounded-lg bg-bg px-1" data-testid="site-nav">
-    <ul class="m-0 flex list-none flex-wrap items-center gap-1 p-0">
-      {
-        links.map((link) => (
-          <li>
-            <a class="inline-flex min-h-11 items-center rounded-sm px-3 text-step--1 text-ink-soft no-underline hover:text-ink aria-[current=true]:text-ink aria-[current=true]:underline aria-[current=true]:decoration-1 aria-[current=true]:underline-offset-8" href={`#${link.id}`} data-nav-link={link.id}>
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
-  <ExperienceControls />
+<header class="site-header z-30 bg-bg" data-print="hide" data-testid="site-header">
+  <div class="mx-auto flex max-w-[1140px] flex-wrap items-center justify-between gap-3 px-5 py-4 min-[800px]:flex-nowrap min-[800px]:gap-6">
+    <a class="inline-flex min-h-11 items-center font-display text-[24px] font-semibold tracking-[-0.04em] text-ink no-underline" href="#top">Liam Reid<span class="text-accent" aria-hidden="true">.</span></a>
+    <nav aria-label="Sections" class="order-3 w-full min-[800px]:order-none min-[800px]:ml-auto min-[800px]:w-auto" data-testid="site-nav">
+      <ul class="m-0 flex list-none flex-wrap items-center gap-x-5 gap-y-1 p-0">
+        {links.map((link) => (
+          <li><a class="inline-flex min-h-11 min-w-11 items-center text-[14px] text-ink no-underline aria-[current=true]:underline aria-[current=true]:underline-offset-8" href={`#${link.id}`} data-nav-link={link.id}>{link.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <ExperienceControls />
+  </div>
 </header>
 
 <style is:global>
   @layer components {
-    /* Sticky only when the viewport is roomy: a sticky bar must not cover the
-       focused element at high zoom (WCAG 2.4.11, 1.4.10). */
-    @media (min-width: 40rem) and (min-height: 40rem) {
-      .site-header {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-      }
+    .site-header { position: relative; }
+    @media (min-width: 50rem) and (min-height: 43.75rem) {
+      .site-header { position: sticky; top: 0; }
     }
-    html {
-      scroll-padding-top: 5rem;
-    }
+    html { scroll-padding-top: 6rem; }
   }
 </style>
-
-<script>
-  import "../scripts/nav";
-</script>
+<script>import "../scripts/nav";</script>

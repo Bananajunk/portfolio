@@ -82,6 +82,12 @@ async function tabThrough(page: Page, max = 120) {
   await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
   for (let i = 0; i < max; i++) {
     await page.keyboard.press("Tab");
+    await page.evaluate(
+      () =>
+        new Promise<void>((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+        ),
+    );
     const stop = await focused(page);
     if (!stop) return { stops, left: true };
     stops.push(stop);
@@ -206,7 +212,7 @@ for (const time of themes) {
       });
     }
 
-    test("forced colours: focus, controls and toy edges stay visible", async ({
+    test("forced colours: focus, controls and contact edges stay visible", async ({
       page,
     }) => {
       await page.emulateMedia({ forcedColors: "active" });
@@ -221,10 +227,12 @@ for (const time of themes) {
       expect(
         await calm.evaluate((e) => getComputedStyle(e).appearance),
       ).not.toBe("none");
-      const sticker = page.getByTestId("sticker-banana");
-      await sticker.scrollIntoViewIfNeeded();
+      await page.keyboard.press("Escape");
+      await page.evaluate(() => scrollTo(0, 1200));
+      const contact = page.getByTestId("contact-trigger");
+      await expect(contact).toBeVisible();
       expect(
-        await sticker.evaluate((e) => getComputedStyle(e).borderTopStyle),
+        await contact.evaluate((e) => getComputedStyle(e).borderTopStyle),
       ).toBe("solid");
       expect(
         await page.evaluate(
@@ -233,7 +241,7 @@ for (const time of themes) {
       ).toBe(true);
     });
 
-    test("target size 2.5.8: every control is at least 24 by 24 CSS px", async ({
+    test("every control meets the Site’s 44 by 44 CSS px target", async ({
       page,
     }) => {
       for (const size of [
@@ -257,14 +265,14 @@ for (const time of themes) {
             )
               continue;
             if (getComputedStyle(el).visibility === "hidden") continue;
-            if (r.width < 24 || r.height < 24)
+            if (r.width < 44 || r.height < 44)
               bad.push(
                 `${el.tagName} ${el.textContent?.trim().slice(0, 30)} ${r.width}x${r.height}`,
               );
           }
           return bad;
         }, INTERACTIVE);
-        expect(small, `controls under 24px at ${size.width}`).toEqual([]);
+        expect(small, `controls under 44px at ${size.width}`).toEqual([]);
       }
     });
 
@@ -330,7 +338,7 @@ for (const time of themes) {
         skips: [],
         main: 1,
         banner: 1,
-        nav: 1,
+        nav: 2,
         contentinfo: 1,
         lang: "en-CA",
         plainLinks: [],
@@ -340,48 +348,32 @@ for (const time of themes) {
     test("text spacing 1.4.12: no clipped text or overflow with WCAG spacing applied", async ({
       page,
     }) => {
-      await page.setViewportSize({ width: 1280, height: 800 });
-      await page.addStyleTag({
-        content:
-          "*{line-height:1.5 !important;letter-spacing:.12em !important;word-spacing:.16em !important} p{margin-bottom:2em !important}",
-      });
-      await openAllCards(page);
-      const clipped = await page.evaluate(() =>
-        [...document.querySelectorAll<HTMLElement>("body *")]
-          .filter((el) => {
-            const cs = getComputedStyle(el);
-            return (
-              ["hidden", "clip"].includes(cs.overflowY) &&
-              el.scrollHeight > el.clientHeight + 1 &&
-              !el.matches("[data-board]")
-            );
-          })
-          .map((el) => `${el.tagName}.${el.className}`.slice(0, 60)),
-      );
-      expect(clipped).toEqual([]);
-      expect(
-        await page.evaluate(
-          () => document.documentElement.scrollWidth - innerWidth,
-        ),
-      ).toBeLessThanOrEqual(0);
-    });
-
-    test("dragging 2.5.7: the sticker board has non-drag alternatives", async ({
-      page,
-    }) => {
-      const banana = page.getByTestId("sticker-banana");
-      await banana.scrollIntoViewIfNeeded();
-      const before = await banana.boundingBox();
-      await banana.click();
-      await page.getByTestId("move-right").click();
-      const after = await banana.boundingBox();
-      expect(after?.x).toBeGreaterThan((before?.x ?? 0) + 10);
-      await page.keyboard.press("Tab"); // leave, then use arrow keys on the sticker
-      await banana.focus();
-      await page.keyboard.press("ArrowDown");
-      expect((await banana.boundingBox())?.y).toBeGreaterThan(
-        (after?.y ?? 0) + 10,
-      );
+      for (const width of [1280, 390, 320]) {
+        await page.setViewportSize({ width, height: 800 });
+        await page.addStyleTag({
+          content:
+            "*{line-height:1.5 !important;letter-spacing:.12em !important;word-spacing:.16em !important} p{margin-bottom:2em !important}",
+        });
+        await openAllCards(page);
+        const clipped = await page.evaluate(() =>
+          [...document.querySelectorAll<HTMLElement>("body *")]
+            .filter((el) => {
+              const cs = getComputedStyle(el);
+              return (
+                ["hidden", "clip"].includes(cs.overflowY) &&
+                el.scrollHeight > el.clientHeight + 1 &&
+                !el.closest("[data-decoration]")
+              );
+            })
+            .map((el) => `${el.tagName}.${el.className}`.slice(0, 60)),
+        );
+        expect(clipped).toEqual([]);
+        expect(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth - innerWidth,
+          ),
+        ).toBeLessThanOrEqual(0);
+      }
     });
   });
 }
@@ -421,35 +413,25 @@ test.describe("motion", () => {
     expect(await animating(page)).toBe(0);
   });
 
-  test("an explicit Calm off wins over reduced motion", async ({ page }) => {
+  test("reduced motion disables animation even with an explicit Calm off", async ({
+    page,
+  }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     await applyState(page, { time: "day", calm: "off" });
     await expect(page.locator("html")).toHaveAttribute("data-calm", "off");
-    // Guard against a vacuous pass above: with Calm off, motion does exist.
-    expect(await animating(page)).toBeGreaterThan(0);
+    // The persisted choice stays intact, but the system motion preference is honoured.
+    expect(await animating(page)).toBe(0);
   });
 });
 
-test("accessibility statement is linked from the footer and has no phone number", async ({
+test("removed sections stay absent and the Site has no phone number", async ({
   page,
 }) => {
   await page.goto("/");
-  const link = page
-    .getByTestId("contact")
-    .getByRole("link", { name: "Accessibility statement" });
-  await link.click();
-  const statement = page.getByTestId("accessibility-statement");
-  await expect(statement).toBeInViewport();
-  await expect(statement).toContainText("aims to conform to WCAG 2.2");
-  await expect(
-    statement.getByRole("link", { name: "cl2reid@gmail.com" }),
-  ).toHaveAttribute("href", "mailto:cl2reid@gmail.com");
-  await expect(statement.getByRole("link", { name: /GitHub/ })).toHaveAttribute(
-    "href",
-    "https://github.com/Bananajunk/portfolio/issues",
-  );
-  expect(await statement.innerText()).not.toMatch(
+  for (const id of ["play", "accessibility", "contact"])
+    await expect(page.locator(`#${id}`)).toHaveCount(0);
+  expect(await page.locator("body").innerText()).not.toMatch(
     /\d{3}[\s.)-]+\d{3}[\s.-]\d{4}/,
   );
 });

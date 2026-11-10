@@ -5,18 +5,10 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { create, type Font } from "fontkitten";
 import sharp from "sharp";
+import { loadDayPalette } from "./palette.ts";
 import { OG_IMAGE_SIZE } from "./seo.ts";
 
 const { width, height } = OG_IMAGE_SIZE;
-
-// Day palette from src/styles/themes.css.
-const colours = {
-  bg: "#fff8e1",
-  ink: "#1b1a17",
-  inkSoft: "#5a5446",
-  banana: "#ffd23f",
-  accent: "#5b2be0",
-};
 
 // Resolved from the project root: this module is bundled into dist/ at build.
 const fontPath = (name: string) =>
@@ -71,18 +63,22 @@ export async function renderOgImage({
     loadFont("bricolage-grotesque"),
     loadFont("atkinson-hyperlegible-next"),
   ]);
-  const left = 96;
-  const nameLine = textPath(display, name, 148, left, 300);
-  const titleLine = textPath(text, title, 52, left, 392);
-  const taglineLine = textPath(text, tagline, 34, left, 468);
-  const domainLine = textPath(text, domain, 34, left, 548);
+  const colour = await loadDayPalette();
+  const left = 80;
+  const nameLine = textPath(display, `${name}.`, 140, left, 250);
+  const titleLine = textPath(text, title, 48, left, 344);
+  const taglineLine = textPath(text, tagline, 32, left, 422);
+  const domainLine = textPath(text, domain, 32, left, 536);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-  <rect width="${width}" height="${height}" fill="${colours.bg}"/>
-  <rect x="0" y="0" width="${width}" height="16" fill="${colours.banana}"/>
-  <rect x="${left}" y="120" width="96" height="10" rx="5" fill="${colours.banana}"/>
-  <g fill="${colours.ink}">${nameLine.svg}${titleLine.svg}</g>
-  <g fill="${colours.inkSoft}">${taglineLine.svg}</g>
-  <g fill="${colours.accent}">${domainLine.svg}</g>
+  <defs><clipPath id="card"><rect x="24" y="24" width="1152" height="582" rx="52"/></clipPath></defs>
+  <rect width="${width}" height="${height}" fill="${colour("bg")}"/>
+  <g clip-path="url(#card)">
+    <rect x="24" y="24" width="1152" height="582" rx="52" fill="${colour("tint-lilac")}"/>
+    <circle cx="1210" cy="170" r="150" fill="none" stroke="${colour("tint-mint")}" stroke-width="50"/>
+    <circle cx="1200" cy="600" r="170" fill="none" stroke="${colour("tint-peach")}" stroke-width="50"/>
+  </g>
+  <g fill="${colour("ink")}">${nameLine.svg}${titleLine.svg}${taglineLine.svg}</g>
+  <g fill="${colour("accent")}">${domainLine.svg}</g>
 </svg>`;
   return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
 }

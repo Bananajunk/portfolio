@@ -7,16 +7,12 @@ export interface State {
   calm: Calm;
 }
 
-// The Time of day and Calm mode controls landed in #19, so every state is a
-// separate case.
-export const CONTROLS_READY = true;
-
 const times: TimeOfDay[] = ["day", "dusk", "night"];
 const calms: Calm[] = ["off", "on"];
 
-export const states: State[] = CONTROLS_READY
-  ? times.flatMap((time) => calms.map((calm) => ({ time, calm })))
-  : [{ time: "day", calm: "off" }];
+export const states: State[] = times.flatMap((time) =>
+  calms.map((calm) => ({ time, calm })),
+);
 
 export const stateName = ({ time, calm }: State) => `${time}, calm ${calm}`;
 

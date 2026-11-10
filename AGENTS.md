@@ -14,13 +14,14 @@ Single-context: one `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs/ag
 
 ## Visual design
 
-For Site UI changes, follow the direction Liam approved on 2026-11-09. This supersedes the mascot, chunky headline and pill-nav direction in issues #1 and #6.
+Follow **Soft Current**, approved by Liam on 2026-11-10.
 
-- **Tone:** calm, editorial and lightly playful. Let the content lead; use small details for wit. Keep the hero free of a mascot or decorative illustration.
-- **Typography:** retain Bricolage Grotesque for display and Atkinson Hyperlegible Next for text. Use moderate display sizes and medium weights, with readable body copy and generous line spacing.
-- **Layout:** use a consistent content column, aligned section edges and generous whitespace. Keep the hero a single column. Give sections hierarchy through spacing and type before adding containers.
-- **Colour and surfaces:** use the approved tokens in `src/styles/themes.css` across day, dusk and night. Reserve banana yellow and pastel tints for restrained accents or meaningful grouping. Prefer plain underlined links and light borders; avoid turning navigation and contact links into heavy pills.
-- **Display settings:** keep Time of day and Calm mode inside the nav's icon flyout. Match the icon to the selected theme: sun for day, sunset over a horizon for dusk, crescent moon for night. Calm mode uses a subdued switch inside the flyout.
-- **Accessibility:** visual quietness must preserve clear focus, contrast, roughly 44px targets and narrow-screen reflow. Keep settings keyboard operable and hidden without JS. Motion follows ADR 0004; the hero is static.
-
-Use `Hero.astro`, `SiteHeader.astro` and `ExperienceControls.astro` as the visual references. Review UI changes at desktop and mobile widths in all three themes, including open settings, before calling the design complete.
+- **Tone:** confident, colourful and lightly cheeky. Identify the Site as Liam Reid; use abstract arcs for personality. Keep Claims clear and easy to scan.
+- **Type:** retain self-hosted Bricolage Grotesque for display and Atkinson Hyperlegible Next for text. The left-aligned hero has a large name and readable summary, without an impact callout. Keep body copy near 65ch and line height at least 1.5.
+- **Layout:** align section edges within an 1100px column, with compact gaps. Work uses visible lead Claims and native disclosures for the remaining Claims. Faire and Shopify share equal-height rows, including their colour break and expanded states.
+- **Identity and imagery:** use real employer and university logos. Stories use the historical Flow editor and the supplied cart screenshot inside a phone frame, with the actual utensils row enlarged. Keep imagery sized and lazy-loaded. Record image provenance in `docs/design/soft-current.md`.
+- **Colour:** use the checked tokens in `src/styles/themes.css` and Tailwind utilities. Lilac, peach, mint and sky group content across all three themes. Arcs decorate margins and image areas; text stays on quiet surfaces.
+- **Content:** show three Stories, followed by the combined career/education timeline and About. Contact links live in the hero and the floating contact disclosure. The Site has no Play, standalone accessibility statement or repeated Contact section.
+- **Controls:** preserve the Time of day icon flyout and Calm switch. The contact disclosure appears after the hero links leave view, supports hover/focus/tap and Escape, preserves focus, and joins normal flow in cramped viewports.
+- **Motion:** use scroll-driven card lifts, moving arcs and screenshot arrivals. Animate only transform and opacity in `src/styles/motion.css`. Keep written Claims opaque. Calm mode and the system reduced-motion preference each disable all non-essential motion; keyboard focus stays still. Unsupported browsers receive the complete static design.
+- **Accessibility:** preserve the heading outline, 44px targets, clear focus, reflow, text spacing, forced colours and the no-JS reading experience. Review desktop and mobile in day/dusk/night with settings and Cards open before calling a visual change complete.

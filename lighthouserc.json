@@ -30,6 +30,12 @@
           {
             "maxNumericValue": 1000
           }
+        ],
+        "categories:seo": [
+          "error",
+          {
+            "minScore": 1
+          }
         ]
       }
     }

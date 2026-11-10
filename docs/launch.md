@@ -1,7 +1,34 @@
 # Launch runbook (bananajunk.dev)
 
-Ticket #13. Do not start until the pre-flight list is complete. Vercel keeps
-serving the old site until the flip.
+## Current build configuration
+
+The Site is live on Cloudflare. On 2026-11-10 Liam approved keeping Soft Current
+live while PR #33 remains unmerged. The final visual polish was pushed in
+commit `00c9395` and deployed as version `e51477f3-c7c9-4766-a205-ee541c17e66a`.
+
+Cloudflare Settings > Builds must keep these commands separate:
+
+| Setting | Value |
+| --- | --- |
+| Production branch | `main` |
+| Build command | `pnpm run build` |
+| Deploy command | `npx wrangler deploy` |
+| Builds for non-production branches | Enabled |
+| Version command | `npx wrangler versions upload` |
+
+The Version command previously ran `wrangler deploy`, which sent PR builds to
+production. It was corrected in the dashboard on 2026-11-10. These build settings
+are external to `wrangler.jsonc`; do not assume the repository config controls
+branch deployment behaviour. [Saved settings](design/soft-current/cloudflare-build-settings.webp).
+
+After changing branch-build settings, push a PR update and verify it creates a
+version preview URL while the active production deployment ID stays unchanged.
+Do not merge a PR merely to test previews. [Cloudflare build settings documentation](https://developers.cloudflare.com/workers/ci-cd/builds/api-reference/).
+
+## Historical migration checklist
+
+The following records the original Vercel-to-Cloudflare migration from ticket
+#13. It is not the procedure for routine releases or preview verification.
 
 ## Pre-flight
 

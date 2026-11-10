@@ -2,19 +2,14 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { applyState } from "./states";
 
-const ids = [
-  "accessibility",
-  "flow-2",
-  "include-utensils",
-  "unified-client-cart-state",
-];
+const ids = ["accessibility", "flow-2", "include-utensils"];
 
-test("four Stories render in order with the four-part structure", async ({
+test("three Stories render in order with the four-part structure", async ({
   page,
 }) => {
   await page.goto("/");
   const articles = page.locator("article.story");
-  await expect(articles).toHaveCount(4);
+  await expect(articles).toHaveCount(3);
   for (const [i, id] of ids.entries()) {
     await expect(articles.nth(i)).toHaveAttribute("data-testid", `story-${id}`);
   }
@@ -27,9 +22,9 @@ test("four Stories render in order with the four-part structure", async ({
   await expect(flow.locator("[data-part]")).toHaveCount(4);
   await expect(flow).toContainText("Recoil");
   await expect(flow.getByRole("link", { name: /Maestro/ })).toBeVisible();
-  await expect(
-    page.getByTestId("story-unified-client-cart-state"),
-  ).not.toContainText(/launched/i);
+  await expect(page.getByTestId("story-unified-client-cart-state")).toHaveCount(
+    0,
+  );
 });
 
 test("every Story has a labelled heading outline", async ({ page }) => {
@@ -37,10 +32,10 @@ test("every Story has a labelled heading outline", async ({ page }) => {
   await expect(
     page.getByRole("heading", { level: 2, name: "Stories" }),
   ).toBeVisible();
-  await expect(page.locator("#stories h3")).toHaveCount(4);
+  await expect(page.locator("#stories h3")).toHaveCount(3);
   for (const label of ["Problem", "What I did", "Outcome"]) {
     await expect(page.locator("#stories h4", { hasText: label })).toHaveCount(
-      4,
+      3,
     );
   }
   await expect(
@@ -69,4 +64,19 @@ test("axe: Stories in every theme", async ({ page }) => {
       .analyze();
     expect(violations.map((v) => `${time} ${v.id}`)).toEqual([]);
   }
+});
+
+test("Utensils uses a full phone image and a decorative detail without outbound links", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const story = page.getByTestId("story-include-utensils");
+  await expect(
+    story.getByRole("img", { name: /Full Chow n Joy cart/ }),
+  ).toHaveAttribute("loading", "lazy");
+  await expect(story.locator(".feature-enter")).toHaveAttribute(
+    "aria-hidden",
+    "true",
+  );
+  await expect(story.getByRole("link")).toHaveCount(0);
 });

@@ -10,11 +10,14 @@
     }
   };
   const theme = read("bj-theme");
+  const hour = new Date().getHours();
   root.dataset.theme = ["day", "dusk", "night"].includes(theme)
     ? theme
-    : matchMedia("(prefers-color-scheme: dark)").matches
-      ? "night"
-      : "day";
+    : hour >= 6 && hour < 17
+      ? "day"
+      : hour >= 17 && hour < 20
+        ? "dusk"
+        : "night";
   const calm = read("bj-calm");
   root.dataset.calm =
     calm === "on" || calm === "off"

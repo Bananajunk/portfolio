@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 /**
  * The committed Resume PDF lives at the repo root, not in `public/`, because
- * it holds the phone number (README). It is served from an endpoint instead,
+ * the source files are kept together. It is served from an endpoint instead,
  * so the file is copied to `dist/` at build and read from one place.
  */
 export const RESUME_PDF_PATH = resolve(process.cwd(), "resume.pdf");

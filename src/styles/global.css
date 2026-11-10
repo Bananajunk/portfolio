@@ -18,6 +18,19 @@
 @import "./print.css";
 
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  h1,
+  h2,
+  h3,
+  p,
+  li,
+  a {
+    overflow-wrap: anywhere;
+  }
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
@@ -59,4 +72,9 @@
 /* Unlayered so it beats the display utilities: controls need JS. */
 :root:not([data-js]) [data-controls] {
   display: none;
+}
+
+/* The HTML hidden state must win over display utilities. */
+[hidden] {
+  display: none !important;
 }

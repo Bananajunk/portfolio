@@ -10,33 +10,25 @@ if (!hero) throw new Error("Missing hero entry in src/content/hero.json");
 <section
   id="top"
   aria-labelledby="hero-heading"
-  class="mx-auto max-w-4xl px-6 py-16 md:py-24"
+  class="relative isolate mx-5 mt-2 box-border max-w-[1100px] rounded-[28px] bg-tint-lilac px-6 py-8 min-[761px]:rounded-[52px] min-[761px]:px-[54px] min-[761px]:py-11 min-[1140px]:mx-auto"
   data-nav-section
   data-testid="hero"
 >
-  <div>
-    <h1
-      id="hero-heading"
-      class="font-display text-step-4 font-medium leading-none tracking-tight"
-    >
-      {hero.name}
-    </h1>
-    <p class="mt-5 font-display text-step-1 font-medium leading-tight">{hero.title}</p>
-    <p class="mt-7 max-w-prose text-step-0 text-ink-soft">{hero.summary}</p>
-    <p class="mt-7 max-w-prose border-l-2 border-banana pl-5 text-step-0">
-      {hero.impact}
-    </p>
-    <ul class="m-0 mt-8 flex list-none flex-wrap gap-x-6 gap-y-2 p-0" aria-label="Contact and Resume">
-      {
-        contactLinks.map((link) => (
-          <li>
-            <a class="inline-flex min-h-11 items-center text-accent underline decoration-1 underline-offset-4" href={link.href}>{link.label}</a>
-          </li>
-        ))
-      }
-      <li>
-        <a class="inline-flex min-h-11 items-center text-accent underline decoration-1 underline-offset-4" href={RESUME_PDF_URL} download>Resume (PDF)</a>
-      </li>
+  <div class="pointer-events-none absolute inset-0 -z-10 overflow-clip rounded-[inherit] forced-colors:hidden" aria-hidden="true" data-decoration>
+    <span class="hero-arc absolute -right-[273px] top-3.5 size-[290px] rounded-full border-[36px] border-solid border-tint-mint min-[761px]:-right-[210px] min-[1101px]:-right-[118px] min-[1101px]:top-[46px] min-[1101px]:border-[46px]"></span>
+    <span class="hero-arc absolute -right-[245px] -bottom-[210px] size-[300px] rounded-full border-[36px] border-solid border-tint-peach min-[761px]:-right-[240px] min-[761px]:-bottom-[156px] min-[761px]:size-[350px] min-[761px]:border-[48px] min-[1101px]:-right-[120px]"></span>
+  </div>
+  <h1 id="hero-heading" class="font-display text-[clamp(50px,15.5vw,90px)] font-bold leading-none tracking-[-0.07em] min-[761px]:text-[108px] min-[1101px]:text-[120px]">
+    {hero.name}<span aria-hidden="true">.</span>
+  </h1>
+  <div class="mt-7 max-w-[660px]">
+    <p class="font-display text-[22px] font-semibold leading-tight tracking-[-0.04em] min-[761px]:text-[28px]">{hero.title}</p>
+    <p class="mt-5 max-w-[65ch] text-[18px] leading-[1.6]">{hero.summary}</p>
+    <ul id="hero-contact-links" class="m-0 mt-5 flex list-none flex-wrap gap-x-6 gap-y-1 p-0" aria-label="Contact and Resume">
+      {contactLinks.map((link) => (
+        <li><a class="inline-flex min-h-11 min-w-11 items-center gap-2 text-accent underline underline-offset-4" href={link.href}>{link.label}<span aria-hidden="true">↗</span></a></li>
+      ))}
+      <li><a class="inline-flex min-h-11 items-center gap-2 text-accent underline underline-offset-4" href={RESUME_PDF_URL} download>Resume (PDF)<span aria-hidden="true">↓</span></a></li>
     </ul>
   </div>
 </section>

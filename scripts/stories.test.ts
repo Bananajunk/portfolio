@@ -55,16 +55,11 @@ test("public sources are listed once, in order", () => {
   assert.deepEqual(publicSources(parts), [pub]);
 });
 
-test("the four Stories ship complete, verified and rule-abiding", () => {
+test("the three Stories ship complete, verified and rule-abiding", () => {
   const stories = read("stories");
   assert.deepEqual(
     stories.map((s: { id: string }) => s.id),
-    [
-      "accessibility",
-      "flow-2",
-      "include-utensils",
-      "unified-client-cart-state",
-    ],
+    ["accessibility", "flow-2", "include-utensils"],
   );
   assert.deepEqual(findUnverified(stories), []);
   for (const story of stories) {

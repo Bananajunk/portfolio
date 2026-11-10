@@ -35,16 +35,12 @@ A pastel colour-block summary of a Role that expands in place to show detail.
 _Avoid_: Tile, panel
 
 **Story**:
-A case study inlined on the Site with Problem, What I did, Trade-offs and Outcome. There are four: accessibility, Flow 2.0, Include Utensils, Unified Client Cart State.
+A case study inlined on the Site with Problem, What I did, Trade-offs and Outcome. There are three: accessibility, Flow 2.0 and Include Utensils.
 _Avoid_: Case study page, project
 
 **Before that**:
-The compact strip of earlier Roles (Microsoft/Yammer, Desire2Learn) shown as one-liners.
+The timeline of earlier Roles (Microsoft/Yammer, Desire2Learn) and education.
 _Avoid_: Early career
-
-**Play**:
-The Site section of accessible toys (sticker board, self-run axe score).
-_Avoid_: Easter eggs, games
 
 ## Experience controls
 

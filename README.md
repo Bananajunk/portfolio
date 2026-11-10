@@ -36,9 +36,8 @@ pnpm dev       # http://localhost:4321
 
 `.github/workflows/ci.yml` runs on every PR and on `main`: type check and lint,
 build, JS budget, link check, axe and Lighthouse. Each job is a separate PR
-check. The axe matrix lives in `tests/states.ts`; flip `CONTROLS_READY` once the
-Time of day and Calm mode controls exist so it covers day/dusk/night with Calm
-on and off.
+check. The axe matrix covers day/dusk/night with Calm on and off at desktop
+and mobile widths, plus keyboard, reflow, forced-colours and text-spacing checks.
 
 ## Styling
 
@@ -76,7 +75,7 @@ public source).
   (empty Story parts must be). `pnpm check:launch` fails while any remain.
   Normal `pnpm check` and `pnpm build` stay green.
 - `resume.html` and `resume.pdf` at the repo root are the committed Resume.
-  They hold the phone number, so they are not in `public/`.
+  The PDF is served through its static endpoint; the downloadable Resume omits the phone number.
 
 ## Theme, Time of day and Calm mode
 
@@ -88,9 +87,11 @@ Palette tokens for the day, dusk and night themes live in
 3:1). Run `pnpm check:contrast -- --table` to print every measured ratio.
 
 `public/theme-init.js` is a blocking same-origin script that applies the
-stored or system theme and Calm mode before first paint (the CSP forbids
+stored or local-time theme and Calm mode before first paint (the CSP forbids
 inline script). Choices persist in `localStorage` (`bj-theme`, `bj-calm`).
-Without JS the controls are hidden, and the page follows the system colour
+The default uses the browser local hour: day from 06:00, dusk from 17:00,
+night from 20:00. Reduced motion always disables animation, even if a saved
+Calm choice is off. Without JS the controls are hidden, and the page follows the system colour
 scheme and `prefers-reduced-motion` through CSS alone.
 
 Selectors for tests (including the axe matrix):
@@ -116,7 +117,11 @@ headers and cache rules are in `public/_headers`.
 
 - **Git deploys:** in the Cloudflare dashboard, connect the repo under
   Workers & Pages (Workers Builds) with build command `pnpm build` and deploy
-  command `npx wrangler deploy`. The Worker is named `portfolio`, and `name` in
+  command `npx wrangler deploy` for production branch `main`. Enable builds for
+  non-production branches and set **Version command** to
+  `npx wrangler versions upload`, so PRs create preview URLs without changing
+  production. These settings live in Cloudflare, not `wrangler.jsonc`.
+  The Worker is named `portfolio`, and `name` in
   `wrangler.jsonc` must match the Worker connected in the dashboard.
 - **Custom domains** (`bananajunk.dev` and `www`) are declared in
   `wrangler.jsonc`, so Cloudflare serves them and manages their DNS. Launch and
