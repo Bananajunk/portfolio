@@ -117,7 +117,11 @@ headers and cache rules are in `public/_headers`.
 
 - **Git deploys:** in the Cloudflare dashboard, connect the repo under
   Workers & Pages (Workers Builds) with build command `pnpm build` and deploy
-  command `npx wrangler deploy`. The Worker is named `portfolio`, and `name` in
+  command `npx wrangler deploy` for production branch `main`. Enable builds for
+  non-production branches and set **Version command** to
+  `npx wrangler versions upload`, so PRs create preview URLs without changing
+  production. These settings live in Cloudflare, not `wrangler.jsonc`.
+  The Worker is named `portfolio`, and `name` in
   `wrangler.jsonc` must match the Worker connected in the dashboard.
 - **Custom domains** (`bananajunk.dev` and `www`) are declared in
   `wrangler.jsonc`, so Cloudflare serves them and manages their DNS. Launch and
