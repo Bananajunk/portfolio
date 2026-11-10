@@ -67,7 +67,7 @@ below should be fixed or ticketed with a rationale before launch.
 These cannot be run by the automation and are **not** recorded as passed.
 Record date, browser and result for each in the table at the end.
 
-### 1. VoiceOver, Safari on macOS (required before launch)
+### 1. VoiceOver, Safari on macOS (done, see results log)
 
 1. Run `pnpm build && pnpm preview`, open the printed URL in Safari.
 2. Turn on VoiceOver with Cmd+F5. Use VO = Control+Option.
@@ -137,7 +137,7 @@ check text-only zoom.
 
 | Check | Date | Browser / AT | Result |
 | --- | --- | --- | --- |
-| 1. VoiceOver, Safari macOS | | | |
+| 1. VoiceOver, Safari macOS | 2026-11-09 (before launch) | Safari on macOS with VoiceOver, run by Liam (versions not recorded) | Done. No findings were reported; details of the pass were not written down. |
 | 2. VoiceOver, Safari iOS | | | |
 | 3. Touch and zoom on a device | | | |
 | 4. Forced colours on Windows | | | |
