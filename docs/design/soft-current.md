@@ -83,9 +83,14 @@ Final local production build:
   Reflow captures cover 640×400 and 320×256 CSS px. No overflow, failed images
   or page errors occurred in the final visual pass.
 
-These are production-build lab measurements, not a measurement of a deployed
-redesign. Native browser zoom, real screen readers, real devices, Windows
-Contrast themes, Safari and Firefox remain unverified for this design. See the
+The existing Cloudflare Git integration automatically deployed commit `334f1fd`
+from the unmerged PR branch to production. A separate Lighthouse run against
+`https://bananajunk.dev/` also passed every threshold: 100/100/100/100 in all
+three runs, with LCP of 958.01, 965.79 and 983.02 ms. These are lab measurements
+of the live deployment, not field measurements.
+
+Native browser zoom, real screen readers, real devices, Windows Contrast themes,
+Safari and Firefox remain unverified for this design. See the
 [accessibility testing record](../a11y-testing.md) for scope and manual steps.
 
 ## Before and after
