@@ -6,15 +6,13 @@ const links = [
   { id: "stories", label: "Stories" },
   { id: "before-that", label: "Before that" },
   { id: "about", label: "About" },
-  { id: "play", label: "Play" },
-  { id: "contact", label: "Contact" },
 ];
 ---
 
-<header class="site-header relative z-30 bg-bg" data-print="hide" data-testid="site-header">
-  <div class="mx-auto flex max-w-[1140px] flex-wrap items-center justify-between gap-3 px-5 py-4 min-[1000px]:flex-nowrap min-[1000px]:gap-6">
+<header class="site-header z-30 bg-bg" data-print="hide" data-testid="site-header">
+  <div class="mx-auto flex max-w-[1140px] flex-wrap items-center justify-between gap-3 px-5 py-4 min-[800px]:flex-nowrap min-[800px]:gap-6">
     <a class="inline-flex min-h-11 items-center font-display text-[24px] font-semibold tracking-[-0.04em] text-ink no-underline" href="#top">Liam Reid<span class="text-accent" aria-hidden="true">.</span></a>
-    <nav aria-label="Sections" class="order-3 w-full min-[1000px]:order-none min-[1000px]:ml-auto min-[1000px]:w-auto" data-testid="site-nav">
+    <nav aria-label="Sections" class="order-3 w-full min-[800px]:order-none min-[800px]:ml-auto min-[800px]:w-auto" data-testid="site-nav">
       <ul class="m-0 flex list-none flex-wrap items-center gap-x-5 gap-y-1 p-0">
         {links.map((link) => (
           <li><a class="inline-flex min-h-11 min-w-11 items-center text-[14px] text-ink no-underline aria-[current=true]:underline aria-[current=true]:underline-offset-8" href={`#${link.id}`} data-nav-link={link.id}>{link.label}</a></li>
@@ -27,7 +25,8 @@ const links = [
 
 <style is:global>
   @layer components {
-    @media (min-width: 62.5rem) and (min-height: 43.75rem) {
+    .site-header { position: relative; }
+    @media (min-width: 50rem) and (min-height: 43.75rem) {
       .site-header { position: sticky; top: 0; }
     }
     html { scroll-padding-top: 6rem; }

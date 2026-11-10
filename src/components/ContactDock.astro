@@ -1,0 +1,18 @@
+---
+import { contactLinks } from "../lib/contact.ts";
+import { RESUME_PDF_URL } from "../lib/resume-pdf.ts";
+import ContactIcon from "./ContactIcon.astro";
+
+const links = [
+  ...contactLinks,
+  { label: "Resume (PDF)", href: RESUME_PDF_URL },
+];
+---
+<aside class="fixed right-5 bottom-[max(20px,env(safe-area-inset-bottom))] z-20 flex max-w-[calc(100vw-40px)] flex-col items-end gap-2.5 min-[761px]:right-6 min-[761px]:bottom-[max(24px,env(safe-area-inset-bottom))] [@media(max-height:500px)]:static [@media(max-height:500px)]:mx-5 [@media(max-height:500px)]:mt-4 [@media(max-height:500px)]:mb-6 max-[360px]:static max-[360px]:mx-5 max-[360px]:mt-4 max-[360px]:mb-6" data-contact-dock data-testid="contact-dock" data-print="hide" aria-label="Contact Liam" hidden>
+  <button class="contact-trigger order-2 [@media(max-height:500px)]:order-none max-[360px]:order-none grid size-14 shrink-0 cursor-pointer place-items-center rounded-full border border-solid border-accent bg-accent text-bg shadow-[0_6px_20px_color-mix(in_srgb,var(--c-ink)_15%,transparent)] focus-visible:outline-offset-[5px] forced-colors:border-2 forced-colors:border-[ButtonText] forced-colors:bg-[ButtonFace] forced-colors:text-[ButtonText] forced-colors:shadow-none" type="button" aria-label="Contact Liam" aria-expanded="false" aria-controls="floating-contact-links" data-contact-trigger data-testid="contact-trigger" title="Contact Liam"><ContactIcon name="message" /></button>
+  <nav id="floating-contact-links" class="contact-panel order-1 max-h-[calc(100dvh-130px)] w-[248px] max-w-full overflow-y-auto rounded-[22px] border border-solid border-edge bg-surface p-4 text-ink shadow-[0_10px_28px_color-mix(in_srgb,var(--c-ink)_12%,transparent)] [@media(max-height:500px)]:max-h-none max-[360px]:max-h-none forced-colors:shadow-none" aria-label="Contact and Resume" data-testid="contact-panel" hidden>
+    <p class="mb-2 px-2 py-1 text-[13px] font-semibold text-ink-soft">Contact Liam</p>
+    <ul class="m-0 list-none p-0">{links.map(link=><li><a href={link.href} download={link.href===RESUME_PDF_URL} class="flex min-h-12 items-center gap-3 rounded-[10px] px-2 py-2 text-[16px] leading-snug text-accent no-underline hover:bg-tint-lilac focus-visible:bg-tint-lilac"><ContactIcon name={link.label} /><span class="underline underline-offset-4">{link.label}</span><span class="contact-arrow ml-auto" aria-hidden="true">{link.href===RESUME_PDF_URL?'↓':'↗'}</span></a></li>)}</ul>
+  </nav>
+</aside>
+<script>import '../scripts/contact-dock';</script>

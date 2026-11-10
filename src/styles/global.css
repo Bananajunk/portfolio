@@ -73,3 +73,8 @@
 :root:not([data-js]) [data-controls] {
   display: none;
 }
+
+/* The HTML hidden state must win over display utilities. */
+[hidden] {
+  display: none !important;
+}

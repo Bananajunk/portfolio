@@ -39,12 +39,8 @@ A case study inlined on the Site with Problem, What I did, Trade-offs and Outcom
 _Avoid_: Case study page, project
 
 **Before that**:
-The compact strip of earlier Roles (Microsoft/Yammer, Desire2Learn) shown as one-liners.
+The timeline of earlier Roles (Microsoft/Yammer, Desire2Learn) and education.
 _Avoid_: Early career
-
-**Play**:
-The Site section of accessible toys (sticker board, self-run axe score).
-_Avoid_: Easter eggs, games
 
 ## Experience controls
 

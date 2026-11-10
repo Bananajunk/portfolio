@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { formatDates } from "../lib/dates.ts";
+import CompanyLogo from "./CompanyLogo.astro";
 
 const earlier = (await getCollection("earlier")).sort(
   (a, b) => a.data.order - b.data.order,
@@ -8,48 +9,30 @@ const earlier = (await getCollection("earlier")).sort(
 const education = (await getCollection("education")).sort(
   (a, b) => a.data.order - b.data.order,
 );
+const entries = [
+  ...earlier.map(({ data: job }) => ({
+    name: job.org,
+    title: job.title,
+    dates: formatDates(job),
+    detail: [job.location, job.summary].filter(Boolean).join(". "),
+    logo: job.id === "microsoft-yammer" ? "microsoft" : "d2l",
+  })),
+  ...education.map(({ data: school }) => ({
+    name: school.school,
+    title: school.degree,
+    dates: `${school.startYear} – ${school.endYear} · Education`,
+    detail: "",
+    logo: school.id,
+  })),
+];
 ---
-
-<section
-  id="before-that"
-  aria-labelledby="before-that-heading"
-  class="mx-auto max-w-4xl px-6 py-16"
-  data-testid="before-that"
->
-  <h2
-    id="before-that-heading"
-    class="font-display text-step-2 font-medium leading-tight tracking-tight"
-  >
-    Before that
-  </h2>
-  <ul class="mt-5 list-none space-y-3 p-0 text-step-0">
-    {
-      earlier.map(({ data: job }) => (
-        <li>
-          <strong class="font-medium">{job.org}</strong>, {job.title}
-          <span class="text-ink-soft">
-            {" "}
-            ({formatDates(job)}, {job.location})
-          </span>
-          {job.summary && <span class="text-ink-soft">. {job.summary}</span>}
-        </li>
-      ))
-    }
-  </ul>
-  <h3 class="mt-10 font-display text-step-1 font-medium leading-tight tracking-tight">
-    Education
-  </h3>
-  <ul class="mt-4 list-none space-y-3 p-0 text-step-0">
-    {
-      education.map(({ data: school }) => (
-        <li>
-          <strong class="font-medium">{school.school}</strong>, {school.degree}
-          <span class="text-ink-soft">
-            {" "}
-            ({school.startYear} – {school.endYear})
-          </span>
-        </li>
-      ))
-    }
-  </ul>
+<section id="before-that" aria-labelledby="before-that-heading" class="min-w-0" data-testid="before-that">
+  <p class="mb-2 text-[11px] font-semibold uppercase tracking-[.08em]">03 / The foundations</p>
+  <h2 id="before-that-heading" class="font-display text-[40px] font-semibold leading-tight tracking-[-.05em] min-[761px]:text-[44px]">Before that<span aria-hidden="true" class="text-accent">.</span></h2>
+  <ol class="relative m-0 mt-8 list-none p-0 before:absolute before:bottom-11 before:left-7 before:top-7 before:w-px before:bg-edge/50 before:content-['']">
+    {entries.map(entry=><li class="relative grid grid-cols-[56px_minmax(0,1fr)] items-start gap-4 pb-7 last:pb-0 min-[761px]:gap-5">
+      <CompanyLogo company={entry.logo} />
+      <div class="min-w-0"><p class="text-[13px] leading-relaxed text-ink-soft min-[761px]:text-[14px]">{entry.dates}</p><h3 class="my-1 font-display text-[21px] font-semibold leading-tight tracking-[-.035em] min-[761px]:text-[23px]">{entry.name}</h3><p class="mt-2 text-[16px] leading-relaxed min-[761px]:text-[17px]">{entry.title}</p>{entry.detail&&<p class="mt-1 text-[13px] leading-relaxed text-ink-soft min-[761px]:text-[14px]">{entry.detail}</p>}</div>
+    </li>)}
+  </ol>
 </section>

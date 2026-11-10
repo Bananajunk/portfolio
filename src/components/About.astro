@@ -4,30 +4,11 @@ import { getCollection } from "astro:content";
 const items = (await getCollection("about"))
   .filter((item) => item.data.text !== "")
   .sort((a, b) => a.data.order - b.data.order);
-const bio = items.filter((item) => item.data.kind === "bio");
-const facts = items.filter((item) => item.data.kind !== "bio");
 ---
-
-<section
-  id="about"
-  aria-labelledby="about-heading"
-  class="mx-auto max-w-4xl px-6 py-16"
-  data-testid="about"
->
-  <h2
-    id="about-heading"
-    class="font-display text-step-2 font-medium leading-tight tracking-tight"
-  >
-    About
-  </h2>
-  {bio.map((item) => <p class="mt-5 max-w-prose text-step-0 text-ink-soft">{item.data.text}</p>)}
-  {
-    facts.length > 0 && (
-      <ul class="mt-5 list-disc space-y-2 pl-5 text-step-0 text-ink-soft">
-        {facts.map((item) => (
-          <li>{item.data.text}</li>
-        ))}
-      </ul>
-    )
-  }
+<section id="about" aria-labelledby="about-heading" class="relative isolate min-w-0 self-start rounded-[32px_64px_32px_32px] bg-tint-mint p-[26px] min-[761px]:p-[30px]" data-testid="about">
+  <span class="pointer-events-none absolute inset-0 -z-10 overflow-clip rounded-[inherit] forced-colors:hidden" aria-hidden="true" data-decoration><span class="current-orbit absolute -right-[150px] -top-[85px] size-[240px] rounded-full border-[35px] border-solid border-tint-sky min-[761px]:-right-[106px]"></span></span>
+  <p class="mb-2 text-[11px] font-semibold uppercase tracking-[.08em]">04 / Beyond the work</p>
+  <h2 id="about-heading" class="font-display text-[40px] font-semibold leading-tight tracking-[-.05em] min-[761px]:text-[44px]">About<span class="text-accent" aria-hidden="true">.</span></h2>
+  <p class="my-8 font-display text-[58px] font-semibold leading-none tracking-[-.055em] min-[761px]:text-[60px]" aria-hidden="true">Hello.<br /><span lang="fr">Bonjour.</span></p>
+  <ul class="m-0 list-none space-y-4 p-0 text-[17px] leading-relaxed">{items.map(item=><li>{item.data.text}</li>)}</ul>
 </section>
