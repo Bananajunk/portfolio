@@ -36,6 +36,22 @@
           animation-timeline: view();
           animation-range: entry 0% exit 100%;
         }
+        .story-image,
+        .phone-enter,
+        .feature-enter {
+          animation-name: screenshot-arrive;
+          animation-timing-function: linear;
+          animation-fill-mode: both;
+          animation-timeline: view();
+          animation-range: entry 0% entry 80%;
+        }
+        .phone-enter {
+          animation-name: phone-arrive;
+        }
+        .feature-enter {
+          animation-name: feature-arrive;
+          animation-range: entry 0% entry 100%;
+        }
         .company-logo {
           animation-name: logo-arrive;
           animation-timing-function: linear;
@@ -97,6 +113,39 @@
     from {
       opacity: 0.7;
       transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer motion {
+  @keyframes screenshot-arrive {
+    from {
+      opacity: 0.6;
+      transform: translateY(26px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes phone-arrive {
+    from {
+      opacity: 0.6;
+      transform: translateY(30px) rotate(-4deg);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes feature-arrive {
+    from {
+      opacity: 0.6;
+      transform: translate(14px, 14px) scale(0.96);
     }
     to {
       opacity: 1;

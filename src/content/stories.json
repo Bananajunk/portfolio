@@ -102,33 +102,5 @@
     },
     "unverified": [],
     "role": "owner"
-  },
-  {
-    "id": "unified-client-cart-state",
-    "order": 4,
-    "title": "Unified Client Cart State",
-    "problem": {
-      "text": "A divergent localStorage store for checkout intent sat behind race conditions with the server cart.",
-      "source": {
-        "kind": "resume"
-      }
-    },
-    "whatIDid": {
-      "text": "Designed and built it so the server cart is the single source of truth for checkout intent, shipped behind shadow-write and cutover flags.",
-      "source": {
-        "kind": "resume"
-      }
-    },
-    "tradeoffs": {
-      "text": ""
-    },
-    "outcome": {
-      "text": "Built to 100% of staging. A flag-gated cart-validation dialog from the same effort cut \"order already placed\" checkout errors about 85% on rollout, from 83 to 13 per day.",
-      "source": {
-        "kind": "resume"
-      }
-    },
-    "unverified": [],
-    "role": "owner"
   }
 ]
