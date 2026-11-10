@@ -63,10 +63,14 @@
         animation: arc-arrive 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
       }
       .hero-arc {
-        animation: arc-arrive 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        --float-x: 0px;
+        --float-y: 24px;
+        animation: hero-float 14s ease-in-out infinite;
       }
       .hero-arc + .hero-arc {
-        animation-delay: 120ms;
+        animation-duration: 18s;
+        animation-delay: -6s;
+        animation-direction: reverse;
       }
       .contact-trigger {
         animation: contact-arrive 280ms ease-out both;
@@ -89,6 +93,10 @@
         animation: detail-arrive 180ms ease-out both;
       }
       @media (min-width: 761px) {
+        .hero-arc {
+          --float-x: 24px;
+          --float-y: 32px;
+        }
         .role-card:nth-child(2) {
           --arrival-from: translateY(80px) rotate(-1.2deg);
         }
@@ -103,17 +111,10 @@
           view-timeline-name: --current;
         }
         .current-orbit,
-        .hero-arc,
         .role-card .role-current {
           animation: current-drift linear both;
           animation-timeline: --current;
           animation-range: cover 0% cover 100%;
-        }
-        .hero-arc {
-          animation-name: hero-current;
-        }
-        .hero-arc + .hero-arc {
-          animation-direction: reverse;
         }
         .role-card .role-current {
           animation-name: role-current;
@@ -176,12 +177,14 @@
       transform: translate(16px, -42px) rotate(100deg);
     }
   }
-  @keyframes hero-current {
-    from {
-      transform: translate(28px, 40px) scale(0.94);
+  @keyframes hero-float {
+    0%,
+    100% {
+      transform: translate(var(--float-x), var(--float-y)) scale(0.97);
     }
-    to {
-      transform: translate(-28px, -64px) scale(1.08);
+    50% {
+      transform: translate(calc(var(--float-x) * -1), calc(var(--float-y) * -1))
+        scale(1.03);
     }
   }
   @keyframes role-current {
