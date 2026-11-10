@@ -65,3 +65,43 @@ test("focusing an arriving Card stops it permanently and preserves its disclosur
   await page.keyboard.press("Tab");
   await expect(card).toHaveCSS("transform", "none");
 });
+
+test("a pointer press during a Card arrival activates its original disclosure", async ({
+  page,
+}) => {
+  const card = page.getByTestId("role-card-shopify");
+  await page.evaluate(() => scrollTo(0, 1100));
+  await expect(card).toHaveAttribute("data-reveal-state", "entered");
+  const summary = card.locator("summary");
+  const bounds = await summary.boundingBox();
+  if (!bounds) throw new Error("Shopify disclosure has no bounds");
+  await page.mouse.move(
+    bounds.x + bounds.width / 2,
+    bounds.y + bounds.height / 2,
+  );
+  await page.mouse.down();
+  await expect(summary).toBeFocused();
+  await page.mouse.up();
+  await expect(card.locator("details")).toHaveAttribute("open", "");
+  await expect(card).toHaveCSS("transform", "none");
+});
+
+test("built decorative arcs follow scrolling with a valid CSS timeline", async ({
+  page,
+}) => {
+  const arc = page.getByTestId("role-card-owner").locator(".role-current");
+  // Finish the Card's timed entrance so only the scroll timeline is measured.
+  await page.getByTestId("role-card-owner").locator("summary").focus();
+  await expect(arc).toHaveCSS("animation-timeline", "--current");
+  const transforms = [];
+  for (const top of [300, 700]) {
+    await page.evaluate(async (y) => {
+      scrollTo(0, y);
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+    }, top);
+    transforms.push(await arc.evaluate((el) => getComputedStyle(el).transform));
+  }
+  expect(transforms[0]).not.toBe("none");
+  expect(transforms[1]).not.toBe(transforms[0]);
+});

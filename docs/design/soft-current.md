@@ -31,19 +31,33 @@ one-off UI colours. Self-hosted Bricolage Grotesque and Atkinson Hyperlegible
 Next remain the only fonts. The favicon and Open Graph image now derive their
 colours from `themes.css` at build time too.
 
-Scroll-driven Work Cards lift and gently rotate into place; their written
-Claims never fade. Logos settle, margin arcs drift, and Story images arrive
-with small transforms and opacity changes. Focused Cards and contact controls
-stay still. Calm mode and system reduced motion each disable non-essential
-motion. Browsers without scroll-timeline support keep the complete static
-layout. All motion lives in `src/styles/motion.css` and changes only transform
-and opacity.
+The approved motion refinement adds one-time arrivals once content is visibly
+inside the viewport. Work Cards lift with a short stagger, Story images and the
+phone settle into place, and the utensils callout grows into its enlarged view.
+Written Claims stay opaque and controls retain their full size. Keyboard focus
+settles the relevant content; a pointer press pauses it until activation finishes.
+Story imagery settles when a nearby link gains focus. Header arcs loop on offset
+14- and 18-second cycles while the text remains
+still; other arcs follow scrolling where CSS view timelines are supported.
+
+Calm mode and system reduced motion each disable non-essential motion, including
+an arrival already in progress. Without JavaScript, content and imagery keep
+their final positions. A small IntersectionObserver module triggers arrivals;
+all animation remains in `src/styles/motion.css`, using transform and opacity.
 
 Keep the scroll animation properties as longhands. The production minifier
 merged an animation shorthand with a view timeline into syntax Chromium did
 not apply; explicit longhands preserve the intended production behaviour.
 The browser suite checks real transform changes so a silent no-motion
 regression cannot pass merely because content remains visible.
+
+The refinement passes the full local gate suite, including 87 browser tests,
+93 contrast pairs and Lighthouse 100/100/100/100 in three runs with LCP below
+1 second. First-load JavaScript is 3,063 bytes gzipped. The original design
+measurements and gallery below are retained as historical evidence.
+
+Refinement screenshots show the layout, not the animation timing:
+[header](soft-current-motion/hero.png) and [Work Cards](soft-current-motion/work.png).
 
 ## Image provenance
 

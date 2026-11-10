@@ -42,6 +42,9 @@
         animation: content-arrive var(--arrival-duration)
           cubic-bezier(0.16, 1, 0.3, 1) var(--arrival-delay) both;
       }
+      [data-reveal-pressed] {
+        animation-play-state: paused;
+      }
       :is(
           [data-reveal="image"],
           [data-reveal="phone"],
@@ -112,7 +115,9 @@
         }
         .current-orbit,
         .role-card .role-current {
-          animation: current-drift linear both;
+          animation-name: current-drift;
+          animation-timing-function: linear;
+          animation-fill-mode: both;
           animation-timeline: --current;
           animation-range: cover 0% cover 100%;
         }
@@ -121,7 +126,7 @@
         }
       }
       /* Focus and open disclosures stay still, including their logos. */
-      [data-reveal]:focus-within,
+      [data-reveal]:focus-within:not([data-reveal-pressed]),
       .story:focus-within [data-reveal],
       .role-card:has(details[open]),
       .role-card:focus-within .company-logo,

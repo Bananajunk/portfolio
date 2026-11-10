@@ -7,8 +7,10 @@ const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const targets = [...document.querySelectorAll<HTMLElement>("[data-reveal]")];
 const seen = new WeakSet<Element>();
 let observer: IntersectionObserver | undefined;
+let pressed: HTMLElement | undefined;
 
 const settle = (element: HTMLElement) => {
+  delete element.dataset.revealPressed;
   element.dataset.revealState = "settled";
   seen.add(element);
   observer?.unobserve(element);
@@ -31,6 +33,7 @@ const sync = () => {
         if (!entry.isIntersecting || !(entry.target instanceof HTMLElement))
           continue;
         const element = entry.target;
+        if (element === pressed) continue;
         // Anchor jumps and keyboard navigation should arrive at stable content.
         if (
           entry.boundingClientRect.top < 0 ||
@@ -67,7 +70,8 @@ for (const element of targets) {
   });
 }
 
-// Stop before a control receives focus or a press; it must not move away.
+// Keyboard focus settles immediately. Pointer focus keeps the pressed control
+// in place until its click has been dispatched and the disclosure has opened.
 const settleInteraction = (event: Event) => {
   if (!(event.target instanceof Element)) return;
   // A moving screenshot must not pass over a neighbouring focused link.
@@ -83,8 +87,32 @@ const settleInteraction = (event: Event) => {
       element.parentElement?.closest<HTMLElement>("[data-reveal]") ?? null;
   }
 };
-document.addEventListener("focusin", settleInteraction);
-document.addEventListener("pointerdown", settleInteraction, { passive: true });
+document.addEventListener("focusin", (event) => {
+  if (event.target instanceof Node && pressed?.contains(event.target)) return;
+  settleInteraction(event);
+});
+document.addEventListener("pointerdown", (event) => {
+  if (!(event.target instanceof Element)) return;
+  pressed = event.target.closest<HTMLElement>("[data-reveal]") ?? undefined;
+  if (pressed) {
+    pressed.dataset.revealPressed = "";
+    observer?.unobserve(pressed);
+  }
+});
+const finishPress = () => {
+  if (pressed) settle(pressed);
+  pressed = undefined;
+};
+document.addEventListener("click", finishPress);
+document.addEventListener("pointercancel", finishPress);
+document.addEventListener("pointerup", () => {
+  // Also settle a drag released outside the original target. The browser
+  // dispatches pointer activation before the next animation frame.
+  const released = pressed;
+  requestAnimationFrame(() => {
+    if (pressed === released) finishPress();
+  });
+});
 new MutationObserver(sync).observe(root, {
   attributes: true,
   attributeFilter: ["data-calm"],
