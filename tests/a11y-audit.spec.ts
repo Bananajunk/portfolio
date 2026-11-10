@@ -348,30 +348,32 @@ for (const time of themes) {
     test("text spacing 1.4.12: no clipped text or overflow with WCAG spacing applied", async ({
       page,
     }) => {
-      await page.setViewportSize({ width: 1280, height: 800 });
-      await page.addStyleTag({
-        content:
-          "*{line-height:1.5 !important;letter-spacing:.12em !important;word-spacing:.16em !important} p{margin-bottom:2em !important}",
-      });
-      await openAllCards(page);
-      const clipped = await page.evaluate(() =>
-        [...document.querySelectorAll<HTMLElement>("body *")]
-          .filter((el) => {
-            const cs = getComputedStyle(el);
-            return (
-              ["hidden", "clip"].includes(cs.overflowY) &&
-              el.scrollHeight > el.clientHeight + 1 &&
-              !el.closest("[data-decoration]")
-            );
-          })
-          .map((el) => `${el.tagName}.${el.className}`.slice(0, 60)),
-      );
-      expect(clipped).toEqual([]);
-      expect(
-        await page.evaluate(
-          () => document.documentElement.scrollWidth - innerWidth,
-        ),
-      ).toBeLessThanOrEqual(0);
+      for (const width of [1280, 390, 320]) {
+        await page.setViewportSize({ width, height: 800 });
+        await page.addStyleTag({
+          content:
+            "*{line-height:1.5 !important;letter-spacing:.12em !important;word-spacing:.16em !important} p{margin-bottom:2em !important}",
+        });
+        await openAllCards(page);
+        const clipped = await page.evaluate(() =>
+          [...document.querySelectorAll<HTMLElement>("body *")]
+            .filter((el) => {
+              const cs = getComputedStyle(el);
+              return (
+                ["hidden", "clip"].includes(cs.overflowY) &&
+                el.scrollHeight > el.clientHeight + 1 &&
+                !el.closest("[data-decoration]")
+              );
+            })
+            .map((el) => `${el.tagName}.${el.className}`.slice(0, 60)),
+        );
+        expect(clipped).toEqual([]);
+        expect(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth - innerWidth,
+          ),
+        ).toBeLessThanOrEqual(0);
+      }
     });
   });
 }

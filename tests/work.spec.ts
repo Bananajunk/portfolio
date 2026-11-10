@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { applyState } from "./states";
+import { applyState, states } from "./states";
 
 test("Role Cards render from content and expand with the keyboard", async ({
   page,
@@ -45,16 +45,20 @@ test("Before that and Education match the Resume", async ({ page }) => {
 
 test("axe: Role Cards expanded in every theme", async ({ page }) => {
   await page.goto("/");
-  for (const time of ["day", "dusk", "night"] as const) {
-    await applyState(page, { time, calm: "on" });
-    await page.evaluate(() => {
-      for (const d of document.querySelectorAll("details")) d.open = true;
-    });
-    const { violations } = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
-      .analyze();
-    expect(violations.map((v) => `${time} ${v.id}`)).toEqual([]);
-  }
+  for (const width of [1280, 390])
+    for (const state of states) {
+      await page.setViewportSize({ width, height: 900 });
+      await applyState(page, state);
+      await page.evaluate(() => {
+        for (const d of document.querySelectorAll("details")) d.open = true;
+      });
+      const { violations } = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
+        .analyze();
+      expect(
+        violations.map((v) => `${state.time} ${state.calm} ${width} ${v.id}`),
+      ).toEqual([]);
+    }
 });
 
 test("Work exposes the lead Claims and pairs Cards at equal heights", async ({
