@@ -422,13 +422,15 @@ test.describe("motion", () => {
     expect(await animating(page)).toBe(0);
   });
 
-  test("an explicit Calm off wins over reduced motion", async ({ page }) => {
+  test("reduced motion disables animation even with an explicit Calm off", async ({
+    page,
+  }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     await applyState(page, { time: "day", calm: "off" });
     await expect(page.locator("html")).toHaveAttribute("data-calm", "off");
-    // Guard against a vacuous pass above: with Calm off, motion does exist.
-    expect(await animating(page)).toBeGreaterThan(0);
+    // The persisted choice stays intact, but the system motion preference is honoured.
+    expect(await animating(page)).toBe(0);
   });
 });
 

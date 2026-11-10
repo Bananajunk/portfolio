@@ -1,0 +1,17 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  eyebrow: string;
+  caption: string;
+  mint?: boolean;
+}
+const { id, title, eyebrow, caption, mint = false } = Astro.props;
+---
+<div class="relative mb-7 flex flex-col gap-3 pr-[65px] min-[761px]:flex-row min-[761px]:items-end min-[761px]:justify-between min-[761px]:pr-[82px]">
+  <div><p class="mb-2 text-[11px] font-semibold uppercase tracking-[.08em]">{eyebrow}</p><h2 id={id} class="font-display text-[44px] font-semibold leading-tight tracking-[-.05em] min-[761px]:text-[54px]">{title}<span class="text-accent" aria-hidden="true">.</span></h2></div>
+  <p class="mb-1 text-[15px] text-ink-soft min-[761px]:text-[17px]">{caption}</p>
+  <span class="pointer-events-none absolute right-0 top-4 size-[50px] overflow-clip forced-colors:hidden min-[761px]:top-1.5 min-[761px]:size-16" aria-hidden="true" data-decoration>
+    <span class={`current-orbit block size-[50px] rounded-full border-[12px] border-solid [clip-path:inset(0_0_0_28%)] min-[761px]:size-16 min-[761px]:border-[16px] ${mint ? "border-tint-mint" : "border-tint-lilac"}`}></span>
+  </span>
+</div>

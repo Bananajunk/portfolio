@@ -5,6 +5,7 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   site: "https://bananajunk.dev",
   output: "static",
+  devToolbar: { enabled: false },
   trailingSlash: "never",
   build: {
     // Never inline CSS so the CSP can stay free of 'unsafe-inline'.

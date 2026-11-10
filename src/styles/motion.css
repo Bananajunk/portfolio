@@ -1,83 +1,102 @@
-/*
- * Hand-written motion lives here and only here: keyframes, scroll-driven
- * animation and transitions. Layout, spacing and colour use Tailwind
- * utilities and theme tokens. Every animation must respect Calm mode and
- * prefers-reduced-motion (ADR 0004).
- *
- * Calm mode is html[data-calm="on"]. With no stored choice, the system
- * reduced-motion setting turns it on; data-calm="off" is an explicit
- * visitor override. An element that is essential to understanding (rare)
- * opts out with data-motion="essential".
- */
-@layer motion {
-  @media (prefers-reduced-motion: reduce) {
-    :root:not([data-calm="off"]) *:not([data-motion="essential"]),
-    :root:not([data-calm="off"]) *:not([data-motion="essential"])::before,
-    :root:not([data-calm="off"]) *:not([data-motion="essential"])::after {
-      animation: none !important;
-      transition: none !important;
-      scroll-behavior: auto !important;
-    }
-  }
-
-  :root[data-calm="on"] *:not([data-motion="essential"]),
-  :root[data-calm="on"] *:not([data-motion="essential"])::before,
-  :root[data-calm="on"] *:not([data-motion="essential"])::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/*
- * Role Cards: native <details> with an animated open and close. Opacity and a
- * small translate only (ADR 0004); Calm mode removes the transitions above, so
- * the card then snaps open and shut. Browsers without ::details-content
- * support simply open instantly.
- */
-@layer motion {
-  .role-card details::details-content {
-    opacity: 0;
-    transition:
-      opacity 0.25s ease,
-      content-visibility 0.25s allow-discrete;
-  }
-
-  .role-card details[open]::details-content {
-    opacity: 1;
-  }
-
-  .role-card .role-detail {
-    transform: translateY(-0.5rem);
-    transition: transform 0.25s ease;
-  }
-
-  .role-card details[open] .role-detail {
-    transform: none;
-  }
-
-  .role-card .role-chevron {
-    transition: transform 0.2s ease;
-  }
-
-  .role-card details[open] .role-chevron {
-    transform: rotate(180deg);
-  }
-}
-
+/* Transform and opacity only. Content is readable before JS and without
+   scroll-timeline support. Calm and the system preference each stop motion. */
 @layer motion {
   @media (prefers-reduced-motion: no-preference) {
-    html[data-calm="off"] .hero-arc {
-      animation: arc-arrive 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-    }
-    html[data-calm="off"] .hero-arc + .hero-arc {
-      animation-delay: 100ms;
+    html[data-calm="off"] {
+      .hero-arc {
+        animation: arc-arrive 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      }
+      .hero-arc + .hero-arc {
+        animation-delay: 100ms;
+      }
+      .role-plus {
+        transition: transform 180ms ease-out;
+      }
+      details[open] .role-plus {
+        transform: rotate(45deg);
+      }
+      .role-detail {
+        animation: detail-arrive 180ms ease-out both;
+      }
+      @supports (animation-timeline: view()) {
+        .role-card {
+          animation-name: card-arrive;
+          animation-timing-function: linear;
+          animation-fill-mode: both;
+          animation-timeline: view();
+          animation-range: entry 0% entry 55%;
+        }
+        .role-card:nth-child(3) {
+          animation-name: card-arrive-right;
+        }
+        .current-orbit {
+          animation-name: current-drift;
+          animation-timing-function: linear;
+          animation-fill-mode: both;
+          animation-timeline: view();
+          animation-range: entry 0% exit 100%;
+        }
+        .company-logo {
+          animation-name: logo-arrive;
+          animation-timing-function: linear;
+          animation-fill-mode: both;
+          animation-timeline: view();
+          animation-range: entry 0% entry 100%;
+        }
+      }
+      /* Keyboard focus is never carried around by an entrance animation. */
+      .role-card:focus-within {
+        animation: none;
+        transform: none;
+      }
     }
   }
   @keyframes arc-arrive {
     from {
       opacity: 0.3;
       transform: translate(16px, 12px) rotate(-12deg);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes card-arrive {
+    from {
+      transform: translateY(56px) rotate(-0.6deg);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes card-arrive-right {
+    from {
+      transform: translateY(72px) rotate(0.6deg);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes logo-arrive {
+    from {
+      transform: translateY(8px) rotate(-8deg);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes current-drift {
+    from {
+      transform: translateY(22px) rotate(-25deg);
+    }
+    to {
+      transform: translateY(-22px) rotate(35deg);
+    }
+  }
+  @keyframes detail-arrive {
+    from {
+      opacity: 0.7;
+      transform: translateY(-6px);
     }
     to {
       opacity: 1;

@@ -1,0 +1,54 @@
+---
+interface Props {
+  company: string;
+}
+const { company } = Astro.props;
+const logos: Record<
+  string,
+  { file: string; classes: string; width: number; height: number }
+> = {
+  owner: {
+    file: "owner.png",
+    classes: "size-14 rounded-[14px]",
+    width: 56,
+    height: 56,
+  },
+  shopify: {
+    file: "shopify.svg",
+    classes: "h-10 w-[35px]",
+    width: 35,
+    height: 40,
+  },
+  textnow: {
+    file: "textnow.svg",
+    classes: "size-[34px]",
+    width: 34,
+    height: 34,
+  },
+  microsoft: {
+    file: "microsoft.png",
+    classes:
+      "absolute left-[11px] top-[11px] h-8 w-auto max-w-none [clip-path:inset(0_calc(100%_-_32px)_0_0)]",
+    width: 150,
+    height: 32,
+  },
+  d2l: { file: "d2l.svg", classes: "h-[27px] w-[45px]", width: 45, height: 27 },
+  waterloo: {
+    file: "waterloo.svg",
+    classes: "h-[42px] w-9",
+    width: 36,
+    height: 42,
+  },
+  laurier: {
+    file: "laurier.png",
+    classes: "size-[54px]",
+    width: 54,
+    height: 54,
+  },
+};
+const logo = logos[company];
+if (!logo) throw new Error(`Unknown company logo: ${company}`);
+---
+<span class="company-logo relative grid size-14 shrink-0 place-items-center rounded-[14px] bg-surface [[data-theme=dusk]_&]:bg-ink [[data-theme=night]_&]:bg-ink forced-colors:border forced-colors:border-solid forced-colors:border-[CanvasText]" aria-hidden="true">
+  <img src={`/images/logos/${logo.file}`} width={logo.width} height={logo.height} alt="" loading="lazy" decoding="async" class={`block object-contain ${logo.classes}`} />
+</span>
