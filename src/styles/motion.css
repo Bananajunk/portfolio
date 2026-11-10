@@ -22,6 +22,7 @@
       .contact-panel a:is(:hover, :focus-visible) .contact-arrow {
         transform: translate(2px, -2px);
       }
+      /* Open-state rotation is a utility so Calm keeps the static cue. */
       .role-plus {
         transition: transform 180ms ease-out;
       }
