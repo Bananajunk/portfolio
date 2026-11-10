@@ -47,9 +47,9 @@ const layout = {
             <ul class="m-0 list-none space-y-5 p-0 text-[17px] leading-[1.6] min-[761px]:text-[18px]">
               {role.claims.slice(0,visible).map(claim => <li class="relative max-w-[65ch] pl-5"><span aria-hidden="true" class="absolute left-0 top-0">↗</span>{claim.text}</li>)}
             </ul>
-            {more.length > 0 && <details class="mt-auto pt-6">
+            {more.length > 0 && <details class="group/role mt-auto pt-6">
               <summary class="role-summary flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 border-0 border-t border-solid border-edge pt-2 text-accent underline underline-offset-4">
-                More at {role.org}<span class="role-plus inline-block text-[26px] leading-none no-underline" aria-hidden="true">+</span>
+                More at {role.org}<span class="role-plus inline-block text-[26px] leading-none no-underline group-open/role:[transform:rotate(45deg)]" aria-hidden="true">+</span>
               </summary>
               <ul class="role-detail m-0 mt-4 list-none space-y-5 p-0 text-[17px] leading-[1.6] min-[761px]:text-[18px]">
                 {more.map(claim => <li class="relative max-w-[65ch] pl-5"><span aria-hidden="true" class="absolute left-0 top-0">↗</span>{claim.text}</li>)}

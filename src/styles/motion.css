@@ -25,9 +25,6 @@
       .role-plus {
         transition: transform 180ms ease-out;
       }
-      details[open] .role-plus {
-        transform: rotate(45deg);
-      }
       .role-detail {
         animation: detail-arrive 180ms ease-out both;
       }

@@ -75,7 +75,7 @@ Final local production build:
   `pnpm check:seo`, `pnpm axe` (82 tests), `pnpm lighthouse`, `pnpm linkcheck`
   and `pnpm check:launch` all pass.
 - 93 contrast pairs pass unchanged thresholds. Lighthouse scores are
-  100/100/100/100 in all three runs; LCP is 902.19, 902.62 and 903.30 ms.
+  100/100/100/100 in all three runs; LCP is 901.87, 902.10 and 903.21 ms.
 - First-load JavaScript is 2,286 bytes gzipped against the 30,720-byte budget.
   There are no new runtime dependencies, third-party requests or CSP changes.
 - Reviewed at 1280px and 390px in every theme with Calm on and off, settings
